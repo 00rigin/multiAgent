@@ -8,3 +8,4 @@ langsmith
 langgraph
 pydantic-settings>=2.0.0
 tavily-python
+langchain-tavily

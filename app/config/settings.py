@@ -3,7 +3,7 @@ from pydantic_settings import BaseSettings
 class LocalSettings(BaseSettings):
     OPENAI_KEY: str
     LANG_SMITH_KEY: str
-    TAVILY_KEY: str
+    TAVILY_API_KEY: str
 
     class Config:
         env_file = ".env"
