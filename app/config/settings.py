@@ -2,8 +2,9 @@ from pydantic_settings import BaseSettings
 
 class LocalSettings(BaseSettings):
     OPENAI_KEY: str
-    LANG_SMITH_KEY: str
-    TAVILY_API_KEY: str
+    NAVER_CLIENT_ID: str
+    NAVER_CLIENT_SECRET: str
+    KAKAO_KEY: str
 
     class Config:
         env_file = ".env"

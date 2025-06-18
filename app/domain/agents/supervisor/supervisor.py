@@ -1,8 +1,6 @@
-from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
-from typing_extensions import Unpack
-
 from typing import Literal
 
+from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from pydantic import BaseModel
 
 from app.config.ai import openai_chat
