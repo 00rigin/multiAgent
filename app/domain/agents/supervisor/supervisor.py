@@ -5,7 +5,7 @@ from pydantic import BaseModel
 
 from app.config.ai import openai_chat
 
-members = ["Researcher", "General"]
+members = ["Researcher", "Calender"]
 system_prompt = (
     "You are a supervisor tasked with managing a conversation between the"
     "following workers: {members}. Given the following user request,"
@@ -24,7 +24,7 @@ prompt = ChatPromptTemplate.from_messages(
         ("system", system_prompt),
         MessagesPlaceholder(variable_name="messages"),
         (
-            "System",
+            "system",
             "Given the conversation above, who should act next? "
             "Respond with one of the following options: {options}. "
             "If the task is complete, respond with FINISH.",

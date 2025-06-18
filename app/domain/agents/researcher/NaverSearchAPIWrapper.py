@@ -1,6 +1,5 @@
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List
 
-import aiohttp
 import requests
 from pydantic.main import BaseModel
 from typing_extensions import Literal
@@ -16,8 +15,6 @@ class NaverSearchAPIWrapper(BaseModel):
 
     X_Naver_Client_Id: str = settings.NAVER_CLIENT_ID
     X_Naver_Client_Secret: str = settings.NAVER_CLIENT_SECRET
-
-    aiosession: Optional[aiohttp.ClientSession] = None
 
     class Config:
         arbitrary_types_allowed = True

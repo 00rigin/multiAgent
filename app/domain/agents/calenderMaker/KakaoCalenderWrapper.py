@@ -1,6 +1,3 @@
-from typing import Optional
-
-import aiohttp
 import requests
 from pydantic import BaseModel
 
@@ -10,7 +7,6 @@ from app.config.settings import settings
 class KakaoCalenderWrapper(BaseModel):
 
     auth_token: str = "Bearer"+settings.KAKAO_KEY
-    aiosession: Optional[aiohttp.ClientSession] = None
 
     def results(self, title: str, description: str, strat_at: str, end_at: str) -> dict:
         return self._kakao_calender_create_results(

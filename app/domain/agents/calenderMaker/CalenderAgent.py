@@ -19,7 +19,7 @@ class CalenderAgent:
         )
 
         self.agent = create_react_agent(
-            llm,
+            self.llm,
             tools=[self.calender_post_tool],
             prompt="You are a helpful agent that can post events to Kakao Calendar. "
         )

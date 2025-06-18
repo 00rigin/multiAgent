@@ -33,7 +33,7 @@ class SearchAgent:
 
         # 3) React Agent 생성
         self.agent = create_react_agent(
-            llm,
+            self.llm,
             tools=[self.search_tool],
             prompt= "You are a helpful search agent that uses the Naver OpenAPI to find information."
         )
