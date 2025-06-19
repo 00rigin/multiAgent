@@ -4,18 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bc751249-33a3-4c99-bb7c-a77d38acc3e4" name="Changes" comment="네이버 검색 / 카카오 캘린더 연결해보기">
-      <change afterPath="$PROJECT_DIR$/app/domain/graph/TravelChatGraph.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/domain/graph/setup.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/domain/agents/calenderMaker/CalenderAgent.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/domain/agents/calenderMaker/CalenderAgent.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/domain/agents/calenderMaker/KakaoCalenderWrapper.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/domain/agents/calenderMaker/KakaoCalenderWrapper.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/domain/agents/researcher/NaverSearchAPIWrapper.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/domain/agents/researcher/NaverSearchAPIWrapper.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/domain/agents/researcher/SearchAgent.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/domain/agents/researcher/SearchAgent.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/domain/agents/supervisor/supervisor.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/domain/agents/supervisor/supervisor.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
-    </list>
+    <list default="true" id="bc751249-33a3-4c99-bb7c-a77d38acc3e4" name="Changes" comment="workflow settings" />
     <list id="05167d0b-2038-44ad-95d1-1fdd8a05b05b" name="env" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -144,7 +133,7 @@
       <updated>1750073337010</updated>
       <workItem from="1750073338094" duration="7000" />
       <workItem from="1750083152930" duration="7028000" />
-      <workItem from="1750253892456" duration="1336000" />
+      <workItem from="1750253892456" duration="1414000" />
     </task>
     <task id="LOCAL-00001" summary="환경 구성">
       <option name="closed" value="true" />
@@ -162,7 +151,15 @@
       <option name="project" value="LOCAL" />
       <updated>1750250309881</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="workflow settings">
+      <option name="closed" value="true" />
+      <created>1750255364881</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1750255364881</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -185,7 +182,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="환경 구성" />
     <MESSAGE value="네이버 검색 / 카카오 캘린더 연결해보기" />
-    <option name="LAST_COMMIT_MESSAGE" value="네이버 검색 / 카카오 캘린더 연결해보기" />
+    <MESSAGE value="workflow settings" />
+    <option name="LAST_COMMIT_MESSAGE" value="workflow settings" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

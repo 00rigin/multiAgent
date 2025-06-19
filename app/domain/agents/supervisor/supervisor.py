@@ -17,7 +17,7 @@ system_prompt = (
 options = ["FINISH"] + members
 
 class routeResponse(BaseModel):
-    next: Literal["FINISH", "Researcher", "General"]
+    next: Literal["FINISH", "Researcher", "Calender"]
 
 prompt = ChatPromptTemplate.from_messages(
     [

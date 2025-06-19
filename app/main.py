@@ -9,6 +9,7 @@ travel_chatbot = TravelChatGraph()
 @app.get("/test")
 async def test():
     message = "경주 여행지를 추천해줄래?"
+    print(message)
 
     for s in travel_chatbot.start().stream(
         {

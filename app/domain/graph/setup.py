@@ -1,4 +1,5 @@
 import functools
+from typing import Hashable
 
 from langgraph.graph import StateGraph, END, START
 from mypy.types import names
@@ -37,7 +38,7 @@ class GraphSetup:
         workflow.add_edge("Researcher", "supervisor")
         workflow.add_edge("Calender", "supervisor")
 
-        conditional_map = {"Researcher": "Researcher", "Calender": "Calender", "FINISH": END}
+        conditional_map: dict[Hashable, str] = {"Researcher": "Researcher", "Calender": "Calender", "FINISH": END}
         workflow.add_conditional_edges("supervisor", lambda x: x["next"], conditional_map)
 
         workflow.add_edge(START, "supervisor")
