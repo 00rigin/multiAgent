@@ -38,4 +38,3 @@ def supervisor_agent(state):
         | openai_chat.with_structured_output(routeResponse)
     )
     return supervisor_chain.invoke(state)
-

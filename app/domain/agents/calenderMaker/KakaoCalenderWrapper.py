@@ -28,7 +28,7 @@ class KakaoCalenderWrapper(BaseModel):
     def _parse_results(self, results: dict) -> str:
         return results["event_id"]
 
-    def _kakao_calender_create_results(self, title:str, description: str, strat_at: str, end_at: str, all_day:str = False, lunar: str = False) -> dict:
+    def _kakao_calender_create_results(self, title:str, description: str, strat_at: str, end_at: str, all_day:bool = False, lunar: bool = False) -> dict:
         """Create Kakao Calendar event creation results"""
         url = "https://kapi.kakao.com/v2/api/calendar/create/event"
         payload = {

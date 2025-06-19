@@ -1,32 +1,26 @@
 from fastapi import FastAPI
 from langchain_core.messages import HumanMessage
-
+from app.domain.graph.setup import GraphSetup  # 예시 import
+from app.MessageRequest import MessageRequest
 from app.domain.graph.TravelChatGraph import TravelChatGraph
 
 app = FastAPI(debug=True)
 travel_chatbot = TravelChatGraph()
 
-@app.get("/test")
-async def test():
-    message = "경주 여행지를 추천해줄래?"
-    print(message)
-
+@app.post("/chat")
+async def test(request: MessageRequest):
     for s in travel_chatbot.start().stream(
         {
             "messages": [
-                HumanMessage(content=message)
+                HumanMessage(content=request.message)
             ]
         }
     ):
         if "__end__" not in s:
             print(s)
             print("-----")
+        else: 
+            return {"response": s}
+    return {"response": "error"}
 
-@app.get("/")
-async def root():
-    return {"message": "Hello World"}
-
-
-@app.get("/hello/{name}")
-async def say_hello(name: str):
-    return {"message": f"Hello {name}"}
+    
