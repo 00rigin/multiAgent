@@ -17,6 +17,8 @@ class KakaoCalenderWrapper(BaseModel):
         )
 
     def run(self, title: str, description: str, strat_at: str, end_at: str) -> str:
+        print("============run post calender===============")
+        print(title, description, strat_at, end_at)
         results = self._kakao_calender_create_results(
             title=title,
             description=description,
@@ -31,7 +33,7 @@ class KakaoCalenderWrapper(BaseModel):
     def _kakao_calender_create_results(self, title:str, description: str, strat_at: str, end_at: str, all_day:bool = False, lunar: bool = False) -> dict:
         """Create Kakao Calendar event creation results"""
         print(title, description, strat_at, end_at)
-        
+
         url = "https://kapi.kakao.com/v2/api/calendar/create/event"
         payload = {
             "title": title,
