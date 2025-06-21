@@ -1,3 +1,4 @@
+from os import strerror
 from pydantic_settings import BaseSettings
 
 class LocalSettings(BaseSettings):
