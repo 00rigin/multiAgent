@@ -21,8 +21,7 @@ class KakaoCalendarComponent(CalendarInterface):
         self.auth_token = auth_token or f"Bearer {settings.KAKAO_KEY}"
         self.base_url = "https://kapi.kakao.com/v2/api/calendar"
         self.headers = {
-            "Authorization": self.auth_token,
-            "Content-Type": "application/json"
+            "Authorization": self.auth_token
         }
     
     def create_event(self, title: str, description: str, start_at: str, end_at: str, 
@@ -43,7 +42,8 @@ class KakaoCalendarComponent(CalendarInterface):
         """
         url = f"{self.base_url}/create/event"
         
-        payload = {
+        # 이벤트 데이터 구성
+        event_data = {
             "title": title,
             "time": {
                 "start_at": start_at,
@@ -53,12 +53,18 @@ class KakaoCalendarComponent(CalendarInterface):
             },
             "description": description
         }
+    
+        
+        # form-data 방식으로 전송 (공식 문서와 동일)
+        data = {
+            "event": json.dumps(event_data)  # JSON 문자열로 변환
+        }
         
         try:
             response = requests.post(
                 url, 
                 headers=self.headers, 
-                json=payload,
+                data=data,  # form-data 방식
                 timeout=30
             )
             response.raise_for_status()
@@ -122,26 +128,29 @@ class KakaoCalendarComponent(CalendarInterface):
         url = f"{self.base_url}/update/event/host"
         
         payload = {
-            "event_id": event_id,
-            "event": {}
         }
 
         if title:
-            payload["event"]["title"] = title
+            payload["title"] = title
         if description:
             payload["description"] = description
         if start_at or end_at is not None:
-            payload["event"]["time"] = {}
+            payload["time"] = {}
             if start_at:
-                payload["event"]["time"]["start_at"] = start_at
+                payload["time"]["start_at"] = start_at
             if end_at:
-                payload["event"]["time"]["end_at"] = end_at
-        
+                payload["time"]["end_at"] = end_at
+
+        data = {
+            "event_id": event_id,
+            "event": json.dumps(payload)
+        }
+
         try:
             response = requests.post(
                 url, 
                 headers=self.headers, 
-                json=payload,
+                data=data,
                 timeout=30
             )
             response.raise_for_status()
@@ -161,7 +170,7 @@ class KakaoCalendarComponent(CalendarInterface):
         """
         url = f"{self.base_url}/delete/event"
         
-        payload = {
+        params = {
             "event_id": event_id
         }
         
@@ -169,7 +178,7 @@ class KakaoCalendarComponent(CalendarInterface):
             response = requests.delete(
                 url, 
                 headers=self.headers,
-                json=payload,
+                params=params,  # query parameter 방식
                 timeout=30
             )
             response.raise_for_status()
