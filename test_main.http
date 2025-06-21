@@ -9,3 +9,65 @@ GET http://127.0.0.1:8000/hello/User
 Accept: application/json
 
 ###
+
+### 일반적인 대화 테스트
+POST http://localhost:8000/chat
+Content-Type: application/json
+
+{
+    "message": "안녕하세요! 오늘 날씨가 어때요?",
+    "session_id": "test-session-1"
+}
+
+### 같은 세션에서 연속 대화
+POST http://localhost:8000/chat
+Content-Type: application/json
+
+{
+    "message": "제가 방금 뭐라고 했죠?",
+    "session_id": "test-session-1"
+}
+
+### 새로운 세션으로 대화
+POST http://localhost:8000/chat
+Content-Type: application/json
+
+{
+    "message": "안녕하세요! 새로운 대화입니다.",
+    "session_id": "test-session-2"
+}
+
+### 세션 ID 없이 대화 (자동 생성)
+POST http://localhost:8000/chat
+Content-Type: application/json
+
+{
+    "message": "세션 ID 없이 대화해보겠습니다."
+}
+
+### 채팅 히스토리 조회
+GET http://localhost:8000/chat/history/test-session-1
+
+### 채팅 통계 조회
+GET http://localhost:8000/chat/stats
+
+### 채팅 히스토리 삭제
+DELETE http://localhost:8000/chat/history/test-session-1
+
+### 검색 기능 테스트
+POST http://localhost:8000/chat
+Content-Type: application/json
+
+{
+    "message": "서울 날씨에 대해 검색해주세요",
+    "session_id": "search-test"
+}
+
+### 캘린더 기능 테스트
+POST http://localhost:8000/chat
+Content-Type: application/json
+
+{
+    "message": "내일 오후 2시에 회의 일정을 등록해주세요",
+    "session_id": "calendar-test"
+}
