@@ -1,9 +1,9 @@
 fastapi>=0.68.0
 uvicorn>=0.15.0
 pydantic>=1.8.0
-langchain
-langchain-openai~=0.3.7
-langchain-core~=0.3.7
+langchain==0.3.25
+langchain-openai
+langchain-core
 langsmith
 langgraph
 pydantic-settings>=2.0.0

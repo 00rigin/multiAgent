@@ -13,7 +13,8 @@ async def test(request: MessageRequest):
         {
             "messages": [
                 HumanMessage(content=request.message)
-            ]
+            ],
+            "agent_scratchpad": []
         }
     ):
         if "__end__" not in s:

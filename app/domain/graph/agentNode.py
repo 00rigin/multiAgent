@@ -1,40 +1,75 @@
-from langchain_core.messages import HumanMessage, AIMessage
+from langchain_core.messages import HumanMessage, AIMessage, FunctionMessage
 from langchain_core.agents import AgentFinish, AgentActionMessageLog
 
 def agent_node(state, agent, name):
+    print("============agent_node===============")
+    print(state.keys())
+    
+    # 필수 상태 변수들 추가
     if "intermediate_steps" not in state:
         state["intermediate_steps"] = []
+    if "agent_scratchpad" not in state:
+        state["agent_scratchpad"] = []
+        
+    print("============agent_node===============")
+    print(state.keys())
+    
     result = agent.invoke(state)
+    
     # AgentFinish 처리
     if isinstance(result, AgentFinish):
         content = result.return_values.get("output", "")
         return {
             "messages": [HumanMessage(content=content, name=name)]
         }
-    # AgentActionMessageLog 처리
+    
+    # AgentActionMessageLog 처리 (도구 호출)
     if isinstance(result, AgentActionMessageLog):
-        # message_log의 마지막 메시지가 AIMessage(function_call)일 수 있음
-        last_msg = result.message_log[-1] if result.message_log else None
-        if isinstance(last_msg, AIMessage) and hasattr(last_msg, "additional_kwargs"):
-            func_call = last_msg.additional_kwargs.get("function_call")
-            if func_call:
-                func_name = func_call.get("name")
-                args = func_call.get("arguments")
-                # arguments는 JSON string일 수 있으니 파싱
-                import json
-                try:
-                    args_dict = json.loads(args) if args else {}
-                except Exception:
-                    args_dict = {}
-                # 안내 메시지 생성
-                content = f"{func_name} 도구를 호출합니다. 입력값: {args_dict}"
-            else:
-                content = ""
+        # 도구 실행
+        tool_name = result.tool
+        tool_input = result.tool_input
+        
+        # 도구 함수 찾기 및 실행
+        tool_func = None
+        for tool in agent.tools:
+            if tool.name == tool_name:
+                tool_func = tool.func
+                break
+        
+        if tool_func:
+            try:
+                # 도구 실행 - tool_input이 딕셔너리가 아닐 경우 처리
+                if isinstance(tool_input, dict):
+                    tool_result = tool_func(**tool_input)
+                else:
+                    tool_result = tool_func(tool_input)
+                
+                # FunctionMessage 생성
+                function_message = FunctionMessage(
+                    content=str(tool_result),
+                    name=tool_name
+                )
+                
+                # intermediate_steps 업데이트
+                new_intermediate_steps = state.get("intermediate_steps", []) + [
+                    (result, function_message)
+                ]
+                
+                return {
+                    "messages": [function_message],
+                    "intermediate_steps": new_intermediate_steps
+                }
+            except Exception as e:
+                error_msg = f"도구 실행 중 오류 발생: {str(e)}"
+                return {
+                    "messages": [HumanMessage(content=error_msg, name=name)]
+                }
         else:
-            content = last_msg.content if last_msg else ""
-        return {
-            "messages": [HumanMessage(content=content, name=name)]
-        }
+            error_msg = f"도구를 찾을 수 없습니다: {tool_name}"
+            return {
+                "messages": [HumanMessage(content=error_msg, name=name)]
+            }
+    
     # 기타(기존 방식)
     else:
         return {
