@@ -5,8 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bc751249-33a3-4c99-bb7c-a77d38acc3e4" name="Changes" comment="UI 2차">
-      <change afterPath="$PROJECT_DIR$/app/component/kakaoCalendar/KaKaoCalendarComponent.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/component/kakaoCalendar/KaKaoCalendarComponent.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/component/kakaoCalendar/KaKaoCalendarComponent.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/domain/agents/calenderMaker/CalenderAgent.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/domain/agents/calenderMaker/CalenderAgent.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/domain/agents/calenderMaker/CalenderParams.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/domain/agents/calenderMaker/KakaoCalenderWrapper.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/domain/agents/researcher/SearchAgent.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/domain/agents/researcher/SearchAgent.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/domain/graph/agentNode.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/domain/graph/agentNode.py" afterDir="false" />
     </list>
     <list id="05167d0b-2038-44ad-95d1-1fdd8a05b05b" name="env" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -140,6 +145,7 @@
       <workItem from="1750395860381" duration="1198000" />
       <workItem from="1750428014711" duration="6502000" />
       <workItem from="1750485235203" duration="2737000" />
+      <workItem from="1750519531008" duration="2500000" />
     </task>
     <task id="LOCAL-00001" summary="환경 구성">
       <option name="closed" value="true" />
@@ -239,19 +245,14 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/app/domain/agents/calenderMaker/KakaoCalenderWrapper.py</url>
-          <line>20</line>
-          <option name="timeStamp" value="13" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/app/domain/agents/calenderMaker/KakaoCalenderWrapper.py</url>
-          <line>34</line>
-          <option name="timeStamp" value="14" />
+          <url>file://$PROJECT_DIR$/app/domain/agents/researcher/SearchAgent.py</url>
+          <line>27</line>
+          <option name="timeStamp" value="15" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/multiAgent$FastAPIProject.coverage" NAME="FastAPIProject Coverage Results" MODIFIED="1750508117305" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/multiAgent$FastAPIProject.coverage" NAME="FastAPIProject Coverage Results" MODIFIED="1750521107699" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
   </component>
 </project>

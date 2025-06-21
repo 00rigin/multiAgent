@@ -3,9 +3,6 @@ from langchain_core.agents import AgentFinish, AgentActionMessageLog
 from app.domain.graph.memory import chat_memory
 
 def agent_node(state, agent, name):
-    print("============agent_node===============")
-    print(state.keys())
-    
     # 필수 상태 변수들 추가
     if "intermediate_steps" not in state:
         state["intermediate_steps"] = []
@@ -13,10 +10,7 @@ def agent_node(state, agent, name):
         state["agent_scratchpad"] = []
     if "session_id" not in state:
         state["session_id"] = None
-        
-    print("============agent_node===============")
-    print(state.keys())
-    
+
     result = agent.invoke(state)
     
     # AgentFinish 처리

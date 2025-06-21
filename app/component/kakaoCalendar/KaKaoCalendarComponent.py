@@ -1,4 +1,3 @@
-from pydantic import BaseModel
 import requests
 from typing import Optional, Dict, Any
 import json
@@ -6,20 +5,21 @@ from datetime import datetime
 from app.config.settings import settings
 from app.component.calendar.CalendarInterface import CalendarInterface
 
-class KakaoCalendarComponent(BaseModel, CalendarInterface):
+class KakaoCalendarComponent(CalendarInterface):
     """
     Kakao Calendar Component for managing calendar events.
     Spring Boot style component that handles all Kakao Calendar API communications.
     """
     
-    auth_token: str = "Bearer "+settings.KAKAO_KEY
-    base_url: str = "https://kapi.kakao.com/v2/api/calendar"
-    
     def __init__(self, auth_token: Optional[str] = None):
-        if auth_token:
-            super().__init__(auth_token=auth_token)
-        else:
-            super().__init__()
+        """
+        Initialize Kakao Calendar Component.
+        
+        Args:
+            auth_token: Optional custom auth token (defaults to settings.KAKAO_KEY)
+        """
+        self.auth_token = auth_token or f"Bearer {settings.KAKAO_KEY}"
+        self.base_url = "https://kapi.kakao.com/v2/api/calendar"
         self.headers = {
             "Authorization": self.auth_token,
             "Content-Type": "application/json"

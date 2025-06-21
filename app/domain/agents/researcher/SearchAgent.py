@@ -24,6 +24,7 @@ class SearchAgent:
         # 2) 툴 정의: 동기 검색 함수를 별도로 정의
         def naver_search_tool(query: str) -> str:
             """Tool 내부에서 호출되는 동기 검색 메서드"""
+            print("==Running Naver Search Tool with query:", query)
             return self.wrapper.run(query)
 
         self.search_tool = Tool(
