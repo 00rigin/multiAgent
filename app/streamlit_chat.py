@@ -112,17 +112,6 @@ def clear_chat_history(session_id):
     except:
         return False
 
-def get_chat_stats():
-    """채팅 통계를 가져옵니다."""
-    try:
-        response = requests.get(f"{API_BASE_URL}/chat/stats")
-        if response.status_code == 200:
-            return response.json()
-        else:
-            return {"active_sessions": 0, "total_messages": 0}
-    except:
-        return {"active_sessions": 0, "total_messages": 0}
-
 def process_message(message_input):
     """메시지를 처리하는 함수"""
     if message_input.strip():
@@ -156,7 +145,6 @@ def process_message(message_input):
             }
             st.session_state.chat_history.append(error_message)
         
-        st.session_state.is_loading = False
         st.rerun()
 
 # 세션 상태 초기화
@@ -166,6 +154,10 @@ if "chat_history" not in st.session_state:
     st.session_state.chat_history = []
 if "is_loading" not in st.session_state:
     st.session_state.is_loading = False
+if "pending_message" not in st.session_state:
+    st.session_state.pending_message = None
+if "clear_input_flag" not in st.session_state:
+    st.session_state.clear_input_flag = False
 
 # 사이드바
 with st.sidebar:
@@ -211,14 +203,6 @@ with st.sidebar:
     
     st.divider()
     
-    # 통계
-    st.subheader("📊 통계")
-    stats = get_chat_stats()
-    st.metric("활성 세션", stats.get("active_sessions", 0))
-    st.metric("총 메시지", stats.get("total_messages", 0))
-    
-    st.divider()
-    
     # 에이전트 정보
     st.subheader("🤖 에이전트 정보")
     st.markdown("""
@@ -237,16 +221,6 @@ with st.container():
         <strong>현재 세션:</strong> {st.session_state.session_id[:8]}...
     </div>
     """, unsafe_allow_html=True)
-
-# 키보드 단축키 안내
-st.markdown("""
-<div class="keyboard-shortcuts">
-    <strong>⌨️ 키보드 단축키:</strong><br>
-    • <strong>Enter</strong>: 새 줄 추가<br>
-    • <strong>Ctrl+Enter</strong>: 메시지 전송 (일부 브라우저에서 지원)<br>
-    • <strong>전송 버튼 클릭</strong>: 메시지 전송
-</div>
-""", unsafe_allow_html=True)
 
 # 채팅 히스토리 표시
 chat_container = st.container()
@@ -271,9 +245,25 @@ with chat_container:
             """, unsafe_allow_html=True)
 
 # 로딩 표시
-if st.session_state.is_loading:
-    with st.spinner("AI가 응답을 생성하고 있습니다..."):
-        time.sleep(0.1)
+if st.session_state.is_loading and st.session_state.pending_message:
+    with st.spinner("🤖 AI가 응답을 생성하고 있습니다..."):
+        response = send_message(st.session_state.pending_message, st.session_state.session_id)
+        if "error" not in response:
+            ai_message = {
+                "type": "ai",
+                "content": response["response"],
+                "timestamp": datetime.now().isoformat()
+            }
+        else:
+            ai_message = {
+                "type": "ai",
+                "content": f"오류: {response.get('error', '알 수 없는 오류')}",
+                "timestamp": datetime.now().isoformat()
+            }
+        st.session_state.chat_history.append(ai_message)
+    st.session_state.is_loading = False
+    st.session_state.pending_message = None
+    st.rerun()
 
 # 메시지 입력 영역
 st.divider()
@@ -290,61 +280,45 @@ with st.container():
     st.markdown('<div class="input-container">', unsafe_allow_html=True)
     
     # 메시지 입력
+    input_key = f"message_input_{st.session_state.clear_input_flag}"
     message_input = st.text_area(
         "메시지를 입력하세요...", 
         height=120, 
-        key="message_input",
-        help="메시지를 입력하고 전송 버튼을 클릭하세요"
+        key=input_key,
+        help="메시지를 입력하고 전송 버튼을 클릭하세요",
+        disabled=st.session_state.is_loading
     )
     
     # 버튼 영역
-    col1, col2, col3, col4 = st.columns([2, 1, 1, 1])
+    col1, col2, col3 = st.columns([3, 1, 1])
     
     with col1:
-        if st.button("📤 전송", type="primary", key="send_button", use_container_width=True):
-            process_message(message_input)
+        button_text = "⏳ 처리 중..." if st.session_state.is_loading else "📤 전송"
+        button_type = "secondary" if st.session_state.is_loading else "primary"
+        
+        if st.button(button_text, type=button_type, key="send_button", use_container_width=True, disabled=st.session_state.is_loading):
+            if not st.session_state.is_loading and message_input.strip():
+                user_message = {
+                    "type": "human",
+                    "content": message_input,
+                    "timestamp": datetime.now().isoformat()
+                }
+                st.session_state.chat_history.append(user_message)
+                st.session_state.pending_message = message_input
+                st.session_state.is_loading = True
+                st.session_state.clear_input_flag = True
+                st.rerun()
     
     with col2:
-        if st.button("🔄 새로고침", key="refresh_button", use_container_width=True):
+        if st.button("🗑️ 초기화", key="clear_input", use_container_width=True, disabled=st.session_state.is_loading):
+            st.session_state.clear_input_flag = not st.session_state.clear_input_flag
             st.rerun()
     
     with col3:
-        if st.button("🗑️ 초기화", key="clear_input", use_container_width=True):
-            st.session_state.message_input = ""
+        if st.button("🔄 새로고침", key="refresh_button", use_container_width=True, disabled=st.session_state.is_loading):
             st.rerun()
-    
-    with col4:
-        if st.button("📋 히스토리", key="load_history", use_container_width=True):
-            history = get_chat_history(st.session_state.session_id)
-            if "messages" in history:
-                st.session_state.chat_history = history["messages"]
-                st.rerun()
     
     st.markdown('</div>', unsafe_allow_html=True)
-
-# 추가 기능 버튼들
-st.markdown("---")
-col1, col2, col3 = st.columns([1, 1, 1])
-
-with col1:
-    if st.button("🆕 새 세션", key="new_session_btn", use_container_width=True):
-        st.session_state.session_id = str(uuid.uuid4())
-        st.session_state.chat_history = []
-        st.rerun()
-
-with col2:
-    if st.button("🗑️ 히스토리 삭제", key="delete_history_btn", use_container_width=True):
-        if clear_chat_history(st.session_state.session_id):
-            st.session_state.chat_history = []
-            st.rerun()
-            st.success("히스토리가 삭제되었습니다!")
-        else:
-            st.error("히스토리 삭제에 실패했습니다.")
-
-with col3:
-    if st.button("📊 통계 보기", key="show_stats", use_container_width=True):
-        stats = get_chat_stats()
-        st.info(f"활성 세션: {stats.get('active_sessions', 0)}, 총 메시지: {stats.get('total_messages', 0)}")
 
 # 푸터
 st.divider()
