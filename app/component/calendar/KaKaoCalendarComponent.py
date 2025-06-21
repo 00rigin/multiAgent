@@ -19,7 +19,7 @@ class KakaoCalendarComponent(CalendarInterface):
             auth_token: Optional custom auth token (defaults to settings.KAKAO_KEY)
         """
         self.auth_token = auth_token or f"Bearer {settings.KAKAO_KEY}"
-        self.base_url = "https://kapi.kakao.com/v2/api/calendar"
+        self.base_url = "https://kapi.kakao.com/v2/api/calendar/public"
         self.headers = {
             "Authorization": self.auth_token
         }
@@ -71,35 +71,28 @@ class KakaoCalendarComponent(CalendarInterface):
             return response.json()
         except requests.exceptions.RequestException as e:
             raise Exception(f"Failed to create calendar event: {str(e)}")
-    
-    def get_events(self, calendar_id: Optional[str] = None, 
-                  start_date: Optional[str] = None, 
-                  end_date: Optional[str] = None) -> Dict[str, Any]:
+
+    def get_events(self,
+                   event_id: str) -> Dict[str, Any]:
         """
         Get calendar events.
-        
+
         Args:
-            calendar_id: Calendar ID (optional)
-            start_date: Start date filter (ISO 8601 format)
-            end_date: End date filter (ISO 8601 format)
-            
+            event_id: Event ID
+
         Returns:
-            List of events as dictionary
+            Event details as dictionary
         """
-        url = f"{self.base_url}/events"
-        
-        params = {}
-        if calendar_id:
-            params["calendar_id"] = calendar_id
-        if start_date:
-            params["start_date"] = start_date
-        if end_date:
-            params["end_date"] = end_date
-            
+        url = f"{self.base_url}/event"
+
+        params = {
+            "event_id": event_id
+        }
+
         try:
             response = requests.get(
-                url, 
-                headers=self.headers, 
+                url,
+                headers=self.headers,
                 params=params,
                 timeout=30
             )
@@ -125,7 +118,7 @@ class KakaoCalendarComponent(CalendarInterface):
         Returns:
             Updated event as dictionary
         """
-        url = f"{self.base_url}/update/event/host"
+        url = f"{self.base_url}/update/event"
         
         payload = {
         }
@@ -185,21 +178,5 @@ class KakaoCalendarComponent(CalendarInterface):
             return True
         except requests.exceptions.RequestException as e:
             raise Exception(f"Failed to delete calendar event: {str(e)}")
-    
-    def test_connection(self) -> bool:
-        """
-        Test the connection to Kakao Calendar API.
-        
-        Returns:
-            True if connection is successful, False otherwise
-        """
-        try:
-            # 간단한 API 호출로 연결 테스트
-            url = f"{self.base_url}/calendars"
-            response = requests.get(url, headers=self.headers, timeout=10)
-            response.raise_for_status()
-            return True
-        except Exception:
-            return False
     
     

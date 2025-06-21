@@ -25,24 +25,20 @@ class CalendarInterface(ABC):
             API response as dictionary
         """
         pass
-    
+
     @abstractmethod
-    def get_events(self, calendar_id: Optional[str] = None, 
-                  start_date: Optional[str] = None, 
-                  end_date: Optional[str] = None) -> Dict[str, Any]:
+    def get_events(self, event_id: str) -> Dict[str, Any]:
         """
         Get calendar events.
-        
+
         Args:
-            calendar_id: Calendar ID (optional)
-            start_date: Start date filter (ISO 8601 format)
-            end_date: End date filter (ISO 8601 format)
-            
+            event_id: Event ID
+
         Returns:
-            List of events as dictionary
+            Event details as dictionary
         """
         pass
-    
+
     @abstractmethod
     def update_event(self, event_id: str, title: Optional[str] = None, 
                     description: Optional[str] = None, start_at: Optional[str] = None,
@@ -76,12 +72,3 @@ class CalendarInterface(ABC):
         """
         pass
     
-    @abstractmethod
-    def test_connection(self) -> bool:
-        """
-        Test the connection to calendar API.
-        
-        Returns:
-            True if connection is successful, False otherwise
-        """
-        pass 
