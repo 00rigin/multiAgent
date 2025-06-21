@@ -3,20 +3,25 @@ import requests
 from typing import Optional, Dict, Any
 import json
 from datetime import datetime
+from app.config.settings import settings
+from app.component.calendar.CalendarInterface import CalendarInterface
 
-class KakaoCalendarComponent(BaseModel):
+class KakaoCalendarComponent(BaseModel, CalendarInterface):
     """
     Kakao Calendar Component for managing calendar events.
     Spring Boot style component that handles all Kakao Calendar API communications.
     """
     
-    auth_token: str
+    auth_token: str = "Bearer "+settings.KAKAO_KEY
     base_url: str = "https://kapi.kakao.com/v2/api/calendar"
     
-    def __init__(self, auth_token: str):
-        super().__init__(auth_token=auth_token)
+    def __init__(self, auth_token: Optional[str] = None):
+        if auth_token:
+            super().__init__(auth_token=auth_token)
+        else:
+            super().__init__()
         self.headers = {
-            "Authorization": f"Bearer {auth_token}",
+            "Authorization": self.auth_token,
             "Content-Type": "application/json"
         }
     
@@ -114,24 +119,26 @@ class KakaoCalendarComponent(BaseModel):
         Returns:
             Updated event as dictionary
         """
-        url = f"{self.base_url}/update/event/{event_id}"
+        url = f"{self.base_url}/update/event/host"
         
-        payload = {}
+        payload = {
+            "event_id": event_id,
+            "event": {}
+        }
+
         if title:
-            payload["title"] = title
+            payload["event"]["title"] = title
         if description:
             payload["description"] = description
-        if start_at or end_at or all_day is not None:
-            payload["time"] = {}
+        if start_at or end_at is not None:
+            payload["event"]["time"] = {}
             if start_at:
-                payload["time"]["start_at"] = start_at
+                payload["event"]["time"]["start_at"] = start_at
             if end_at:
-                payload["time"]["end_at"] = end_at
-            if all_day is not None:
-                payload["time"]["all_day"] = all_day
+                payload["event"]["time"]["end_at"] = end_at
         
         try:
-            response = requests.put(
+            response = requests.post(
                 url, 
                 headers=self.headers, 
                 json=payload,
@@ -152,38 +159,23 @@ class KakaoCalendarComponent(BaseModel):
         Returns:
             True if successful, False otherwise
         """
-        url = f"{self.base_url}/delete/event/{event_id}"
+        url = f"{self.base_url}/delete/event"
+        
+        payload = {
+            "event_id": event_id
+        }
         
         try:
             response = requests.delete(
                 url, 
                 headers=self.headers,
+                json=payload,
                 timeout=30
             )
             response.raise_for_status()
             return True
         except requests.exceptions.RequestException as e:
             raise Exception(f"Failed to delete calendar event: {str(e)}")
-    
-    def get_calendars(self) -> Dict[str, Any]:
-        """
-        Get list of available calendars.
-        
-        Returns:
-            List of calendars as dictionary
-        """
-        url = f"{self.base_url}/calendars"
-        
-        try:
-            response = requests.get(
-                url, 
-                headers=self.headers,
-                timeout=30
-            )
-            response.raise_for_status()
-            return response.json()
-        except requests.exceptions.RequestException as e:
-            raise Exception(f"Failed to get calendars: {str(e)}")
     
     def test_connection(self) -> bool:
         """
@@ -193,7 +185,12 @@ class KakaoCalendarComponent(BaseModel):
             True if connection is successful, False otherwise
         """
         try:
-            self.get_calendars()
+            # 간단한 API 호출로 연결 테스트
+            url = f"{self.base_url}/calendars"
+            response = requests.get(url, headers=self.headers, timeout=10)
+            response.raise_for_status()
             return True
         except Exception:
             return False
+    
+    
