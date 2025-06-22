@@ -3,7 +3,7 @@ from langchain.tools import tool
 from typing import Optional
 
 from app.config.ai import openai_chat
-from app.component.calendar.KaKaoCalendarComponent import KakaoCalendarComponent
+from app.component.calendar.KakaoCalendar.KaKaoCalendarComponent import KakaoCalendarComponent
 from app.component.calendar.CalendarInterface import CalendarInterface
 
 

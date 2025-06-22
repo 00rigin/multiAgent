@@ -7,8 +7,8 @@ class LocalSettings(BaseSettings):
     NAVER_CLIENT_SECRET: str
     KAKAO_KEY: str
     # Gmail API settings
-    GMAIL_CREDENTIALS_PATH: str = "credentials.json"
-    GMAIL_TOKEN_PATH: str = "token.json"
+    GOOGLE_CREDENTIAL_PATH: str
+    GMAIL_TOKEN_PATH: str
 
     class Config:
         env_file = ".env"

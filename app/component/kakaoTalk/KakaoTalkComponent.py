@@ -2,7 +2,7 @@ from typing import Optional, Dict, Any
 
 import requests
 
-from app.component.calendar.KaKaoCalendarComponent import KakaoCalendarComponent
+from app.component.calendar.KakaoCalendar.KaKaoCalendarComponent import KakaoCalendarComponent
 from app.config.settings import settings
 
 
