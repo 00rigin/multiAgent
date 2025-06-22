@@ -1,11 +1,11 @@
-from typing import Any, Dict, List
+from typing import Any, List
 
 import requests
 from pydantic.main import BaseModel
 from typing_extensions import Literal
 
-from app.config.settings import settings
 from app.component.search.SearchInterface import SearchInterface
+from app.config.settings import settings
 
 
 class NaverSearchComponent(BaseModel, SearchInterface):

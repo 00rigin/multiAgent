@@ -5,7 +5,7 @@ from datetime import datetime
 
 from app.config.ai import openai_chat
 from app.component.search.SearchInterface import SearchInterface
-from app.component.search.NaverSearchComponent import NaverSearchComponent
+from app.component.search.naver.NaverSearchComponent import NaverSearchComponent
 
 
 class SearchAgent:
