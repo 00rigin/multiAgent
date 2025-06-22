@@ -7,7 +7,7 @@ LangChain과 LangGraph를 사용한 멀티 에이전트 채팅 시스템입니�
 ### 🤖 에이전트
 - **Chat Agent**: 일반적인 대화 및 질문 답변
 - **Researcher Agent**: 네이버 검색을 통한 정보 조사
-- **Calender Agent**: 카카오 캘린더 일정 등록
+- **Calender Agent**: 캘린더 일정 등록/조회/수정/삭제
 - **Mail Agent**: 이메일 전송
 - **Supervisor Agent**: 에이전트 할당
 
@@ -33,6 +33,9 @@ LangChain과 LangGraph를 사용한 멀티 에이전트 채팅 시스템입니�
      - `MailInterface`
      - `SearchInterface`
 - Interface의 구현체를 변경할 수 있게 하여 자유도 향상
+     - `CalendarInterface` <- `KaKaoCalendarComponent`
+     - `MailInterface` <- `GamilComponent`
+     - `SearchInterface` <- `NaverSearchComponent`
 - 새로운 서비스 추가 시 기존 코드 변경 없이 인터페이스 구현만으로 확장
 
 ### 3. **LLM 가드레일 시스템**
