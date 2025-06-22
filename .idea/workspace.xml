@@ -6,10 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="bc751249-33a3-4c99-bb7c-a77d38acc3e4" name="Changes" comment="chat API 위치 이동 / promt에 날짜 추가">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/api/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/api/v1/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/component/search/SearchInterface.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/component/search/SearchInterface.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/domain/agents/mailAgent/MailAgent.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/domain/agents/mailAgent/MailAgent.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/domain/graph/setup.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/domain/graph/setup.py" afterDir="false" />
     </list>
     <list id="05167d0b-2038-44ad-95d1-1fdd8a05b05b" name="env" comment="" />
     <option name="SHOW_DIALOG" value="false" />
