@@ -101,6 +101,6 @@ multiAgent/
         credentials.json
 ```
 ## 동작 결과
-![채팅1.png](../../Users/yhj0122/OneDrive%20-%20MIDAS/%EB%B0%94%ED%83%95%20%ED%99%94%EB%A9%B4/%EA%B0%9C%EC%9D%B8/%EC%B1%84%ED%8C%851.png)
-![채팅2.png](../../Users/yhj0122/OneDrive%20-%20MIDAS/%EB%B0%94%ED%83%95%20%ED%99%94%EB%A9%B4/%EA%B0%9C%EC%9D%B8/%EC%B1%84%ED%8C%852.png)
-![채팅3.png](../../Users/yhj0122/OneDrive%20-%20MIDAS/%EB%B0%94%ED%83%95%20%ED%99%94%EB%A9%B4/%EA%B0%9C%EC%9D%B8/%EC%B1%84%ED%8C%853.png)
+![chat1.png](statics/chat1.png)
+![chat2.png](statics/chat2.png)
+![chat3.png](statics/chat3.png)
