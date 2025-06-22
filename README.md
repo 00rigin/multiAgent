@@ -19,6 +19,18 @@ LangChain과 LangGraph를 사용한 멀티 에이전트 채팅 시스템입니�
 - **API**: FastAPI 기반 REST API
 - **Web UI**: Streamlit 기반 채팅 인터페이스
 
+## 🎯 신경쓴 부분
+
+### 1. **프롬프트 중앙 관리**
+- 모든 에이전트의 프롬프트를 `app/config/prompts.py`에서 한 곳에 관리
+- 프롬프트 수정 시 코드 변경 없이 한 곳만 수정하면 모든 에이전트에 적용
+- 일관성 있는 프롬프트 스타일과 유지보수성 향상
+
+### 2. **인터페이스 기반 확장성**
+- 각 에이전트가 사용하는 도구들을 인터페이스로 설계
+- `CalendarInterface`, `MailInterface`, `SearchInterface` 등을 통해 구현체 교체 가능
+- 새로운 서비스 추가 시 기존 코드 변경 없이 인터페이스 구현만으로 확장
+
 ## 📋 설치 및 실행
 
 ### 1. 의존성 설치
@@ -64,42 +76,146 @@ multiAgent/
 │  │  streamlit_chat.py
 │  ├─component
 │  │  ├─calendar
-│  │  │  │  CalendarInterface.py
-│  │  │  ├─KakaoCalendar
-│  │  │  │  │  KaKaoCalendarComponent.py
+│  │  │  │  CalendarInterface.py          # 🎯 인터페이스
+│  │  │  └─KakaoCalendar
+│  │  │     └─KaKaoCalendarComponent.py  # 구현체
 │  │  ├─kakaoTalk
-│  │  │      KakaoTalkComponent.py
+│  │  │  └─KakaoTalkComponent.py
 │  │  ├─mail
-│  │  │  │  MailInterface.py
-│  │  │  │
 │  │  │  ├─gmail
-│  │  │  │  │  GmailComponent.py
+│  │  │  │  └─GmailComponent.py          # 구현체
+│  │  │  └─MailInterface.py              # 🎯 인터페이스
+│  │  └─search
+│  │     ├─naver
+│  │     │  └─NaverSearchComponent.py    # 구현체
+│  │     └─SearchInterface.py            # 🎯 인터페이스
 │  ├─config
-│  │  │  ai.py
-│  │  │  settings.py
-│  │  │
+│  │  ├─ai.py
+│  │  ├─settings.py
+│  │  └─prompts.py
 │  ├─domain
 │  │  ├─agents
 │  │  │  ├─advisor
-│  │  │  │  │  ChatAgent.py
+│  │  │  │  └─ChatAgent.py
 │  │  │  ├─calenderMaker
-│  │  │  │  │  CalenderAgent.py
+│  │  │  │  └─CalenderAgent.py
 │  │  │  ├─mailAgent
-│  │  │  │  │  MailAgent.py
+│  │  │  │  └─MailAgent.py
 │  │  │  ├─researcher
-│  │  │  │  │  NaverSearchAPIWrapper.py
-│  │  │  │  │  SearchAgent.py
-│  │  │  ├─supervisor
-│  │  │  │  │  supervisor.py
-│  │  ├─graph
-│  │  │  │  agentNode.py
-│  │  │  │  AgentState.py
-│  │  │  │  memory.py
-│  │  │  │  setup.py
-│  │  │  │  TravelChatGraph.py
-└─resources
-        credentials.json
+│  │  │  │  └─SearchAgent.py
+│  │  │  └─supervisor
+│  │  │     └─supervisor.py
+│  │  └─graph
+│  │     ├─agentNode.py
+│  │     ├─AgentState.py
+│  │     ├─memory.py
+│  │     ├─setup.py
+│  │     └─TravelChatGraph.py
+├─resources
+├─statics
+│  ├─chat1.png
+│  ├─chat2.png
+│  ├─chat3.png
+│  └─mail.png
+└─test_main.http
 ```
+
+## 📝 프롬프트 관리 시스템 사용법
+
+### 기본 사용법
+```python
+from app.config.prompts import get_prompt
+
+# 각 에이전트별로 프롬프트 가져오기
+chat_prompt = get_prompt('chat')
+search_prompt = get_prompt('search')
+calendar_prompt = get_prompt('calendar')
+mail_prompt = get_prompt('mail')
+supervisor_prompt = get_prompt('supervisor')
+```
+
+### 에이전트에서 사용
+```python
+# ChatAgent 예시
+from app.config.prompts import get_prompt
+
+class ChatAgent:
+    def __init__(self, llm=None):
+        self.llm = llm or openai_chat
+        
+        # 프롬프트 가져오기
+        system_prompt = get_prompt('chat')
+        
+        self.prompt = ChatPromptTemplate.from_messages([
+            ("system", system_prompt),
+            MessagesPlaceholder(variable_name="messages"),
+            MessagesPlaceholder(variable_name="agent_scratchpad"),
+        ])
+```
+
+### 프롬프트 수정
+프롬프트를 수정하려면 `app/config/prompts.py` 파일에서 해당 프롬프트를 직접 편집하면 됩니다:
+
+```python
+# app/config/prompts.py
+CHAT_PROMPT = """당신은 친근하고 도움이 되는 AI 어시스턴트입니다.
+# 여기서 프롬프트 내용을 수정
+"""
+```
+
+## 🔧 인터페이스 기반 확장 예시
+
+### 새로운 캘린더 서비스 추가
+```python
+# GoogleCalendarComponent.py (새로운 구현체)
+from app.component.calendar.CalendarInterface import CalendarInterface
+
+class GoogleCalendarComponent(CalendarInterface):
+    def create_event(self, title: str, description: str, start_at: str, end_at: str):
+        # Google Calendar API 구현
+        pass
+
+# CalenderAgent에서 사용
+calendar_component = GoogleCalendarComponent()  # KakaoCalendar 대신 사용
+calender_agent = CalenderAgent(calendar_component=calendar_component)
+```
+
+### 새로운 검색 서비스 추가
+```python
+# GoogleSearchComponent.py (새로운 구현체)
+from app.component.search.SearchInterface import SearchInterface
+
+class GoogleSearchComponent(SearchInterface):
+    def search(self, query: str):
+        # Google Search API 구현
+        pass
+
+# SearchAgent에서 사용
+search_component = GoogleSearchComponent()  # NaverSearch 대신 사용
+search_agent = SearchAgent(search_component=search_component)
+```
+
+## 🔧 프롬프트 관리 시스템의 장점
+
+### 1. **중앙화된 관리**
+- 모든 에이전트의 프롬프트가 `app/config/prompts.py`에 저장
+- 프롬프트 수정 시 한 곳만 변경하면 모든 에이전트에 적용
+- 일관성 있는 프롬프트 스타일 유지
+
+### 2. **단순한 구조**
+- 복잡한 클래스나 설정 없이 단순한 함수 하나로 관리
+- `get_prompt(agent_type)` 함수로 쉽게 프롬프트 가져오기
+- 코드 변경 없이 프롬프트만 수정 가능
+
+### 3. **유지보수성**
+- 프롬프트 전문가와 개발자 간 협업 용이
+- 프롬프트 변경 이력 추적 가능
+- 새로운 에이전트 추가 시 기존 패턴 재사용
+
+### 4. **확장성**
+- 필요시 프롬프트 변형이나 설정 파일 지원 추가 가능
+- A/B 테스트를 위한 프롬프트 변형 시스템 확장 가능
+
 ## 동작 결과
 ![chat1.png](statics/chat1.png)
 ![chat2.png](statics/chat2.png)

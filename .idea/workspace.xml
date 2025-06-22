@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bc751249-33a3-4c99-bb7c-a77d38acc3e4" name="Changes" comment="readme.md 수정-1">
-      <change afterPath="$PROJECT_DIR$/statics/mail.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-    </list>
+    <list default="true" id="bc751249-33a3-4c99-bb7c-a77d38acc3e4" name="Changes" comment="사용하지 않는 NaverSearchAPIWrapper.py 삭제" />
     <list id="05167d0b-2038-44ad-95d1-1fdd8a05b05b" name="env" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -143,6 +140,7 @@
       <workItem from="1750428014711" duration="6502000" />
       <workItem from="1750485235203" duration="2737000" />
       <workItem from="1750519531008" duration="19200000" />
+      <workItem from="1750561644561" duration="572000" />
     </task>
     <task id="LOCAL-00001" summary="환경 구성">
       <option name="closed" value="true" />
@@ -280,7 +278,23 @@
       <option name="project" value="LOCAL" />
       <updated>1750559975736</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="search 인터페이스로 분리">
+      <option name="closed" value="true" />
+      <created>1750561810374</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1750561810374</updated>
+    </task>
+    <task id="LOCAL-00019" summary="사용하지 않는 NaverSearchAPIWrapper.py 삭제">
+      <option name="closed" value="true" />
+      <created>1750562223840</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1750562223840</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -317,9 +331,11 @@
     <MESSAGE value="캘린더 사용 수정-event id 대화에 보이도록" />
     <MESSAGE value="readme.md 작성" />
     <MESSAGE value="readme.md 수정-1" />
-    <option name="LAST_COMMIT_MESSAGE" value="readme.md 수정-1" />
+    <MESSAGE value="search 인터페이스로 분리" />
+    <MESSAGE value="사용하지 않는 NaverSearchAPIWrapper.py 삭제" />
+    <option name="LAST_COMMIT_MESSAGE" value="사용하지 않는 NaverSearchAPIWrapper.py 삭제" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/multiAgent$FastAPIProject.coverage" NAME="FastAPIProject Coverage Results" MODIFIED="1750557139837" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/multiAgent$FastAPIProject.coverage" NAME="FastAPIProject Coverage Results" MODIFIED="1750561664013" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
   </component>
 </project>

@@ -3,8 +3,9 @@ from langchain.tools import tool
 from typing import Optional
 
 from app.config.ai import openai_chat
-from app.component.mail.gmail.GmailComponent import GmailComponent
 from app.component.mail.MailInterface import MailInterface
+from app.component.mail.gmail.GmailComponent import GmailComponent
+from app.config.prompts import get_prompt
 
 
 class MailAgent:
@@ -22,15 +23,15 @@ class MailAgent:
         if mail_component:
             self.mail = mail_component
         else:
-            # Default to Gmail Component
+            # Default to Gmail
             self.mail = GmailComponent()
 
         def send_email_tool(to: str, subject: str, body: str) -> str:
             """
-            Send an email to specified recipients.
+            Send an email using the mail component.
             
             Args:
-                to: 수신자 이메일 주소 (쉼표로 구분된 여러 주소 가능)
+                to: 수신자 이메일 주소 (쉼표로 구분된 여러 주소 지원)
                 subject: 이메일 제목
                 body: 이메일 내용
             """
@@ -40,18 +41,27 @@ class MailAgent:
             print(f"Body: {body}")
             
             try:
+                # 쉼표로 구분된 이메일 주소를 리스트로 변환
                 to_list = [email.strip() for email in to.split(',')]
                 
-                result = self.mail.send_email(
-                    to=to_list, subject=subject, body=body
-                )
+                result = self.mail.send_email(to=to_list, subject=subject, body=body)
                 
                 print(f"Mail API Response: {result}")
                 
-                if result and "id" in result:
-                    return f"이메일 발송 성공: {subject} - 메시지 ID: {result['id']}"
+                if result and "message_id" in result:
+                    message_id = result['message_id']
+                    return f"""✅ 이메일이 성공적으로 발송되었습니다!
+
+📧 이메일 정보:
+• 수신자: {to}
+• 제목: {subject}
+• 내용: {body[:100]}{'...' if len(body) > 100 else ''}
+
+🆔 메시지 ID: `{message_id}`
+
+💡 이메일 발송이 완료되었습니다."""
                 else:
-                    return f"이메일 발송 성공: {subject}"
+                    return f"✅ 이메일 발송 완료!\n📧 수신자: {to}\n📝 제목: {subject}"
                     
             except Exception as e:
                 error_msg = f"이메일 발송에 실패했습니다: {str(e)}"
@@ -60,28 +70,31 @@ class MailAgent:
 
         def test_connection_tool() -> str:
             """
-            Test connection to Gmail API.
+            Test the connection to the mail service.
             """
-            print("============ Test Gmail Connection ===============")
+            print("============ Test Mail Connection ===============")
             
             try:
-                success = self.mail.test_connection()
+                result = self.mail.test_connection()
                 
-                print(f"Connection test result: {success}")
+                print(f"Mail Connection Test Response: {result}")
                 
-                if success:
-                    return "Gmail API 연결 성공"
+                if result:
+                    return "✅ 이메일 서비스 연결이 정상입니다!"
                 else:
-                    return "Gmail API 연결 실패"
+                    return "❌ 이메일 서비스 연결에 실패했습니다."
                     
             except Exception as e:
-                error_msg = f"연결 테스트에 실패했습니다: {str(e)}"
+                error_msg = f"이메일 서비스 연결 테스트에 실패했습니다: {str(e)}"
                 print(f"Error: {error_msg}")
                 return error_msg
 
         # 도구들 생성
         self.send_email_tool = tool(send_email_tool)
         self.test_connection_tool = tool(test_connection_tool)
+
+        # 프롬프트 가져오기
+        prompt = get_prompt('mail')
 
         # React Agent 생성
         self.agent = create_react_agent(
@@ -90,31 +103,7 @@ class MailAgent:
                 self.send_email_tool,
                 self.test_connection_tool,
             ],
-            prompt="""너는 사용자의 요청을 받아 이메일을 관리하는 에이전트야.
-
-🛡️ 신뢰성 및 정확성 원칙:
-- 절대로 확실하지 않은 정보를 제공하지 마세요
-- 도구 실행 결과만을 기반으로 응답하세요
-- API 응답이 실패하면 정확한 오류 메시지를 전달하세요
-- 추측이나 가정을 바탕으로 한 정보는 제공하지 마세요
-- "모르겠습니다" 또는 "확인할 수 없습니다"라고 솔직히 말하세요
-- 이메일 발송 전에 수신자, 제목, 내용이 모두 유효한지 확인하세요
-
-주요 기능:
-1. 이메일 발송: 지정된 수신자에게 이메일을 발송
-
-사용 가능한 도구들:
-- send_email_tool: 이메일 발송
-
-💡 이메일 발송 시 주의사항:
-- 수신자(to)는 쉼표로 구분된 여러 이메일 주소를 지원
-- 제목(subject)과 내용(body)은 명확하게 작성
-- 이메일 주소 형식이 올바른지 검증하세요
-- API 호출이 실패하면 구체적인 오류 원인을 사용자에게 알려주세요
-
-사용자의 요청을 분석하여 무언갈 외부에 공유 한다던가, 메일을 보내려고 하는 것이 있다면 send_email_tool을 사용해줘.
-도구 사용에 성공 했을때, 도구 사용 결과와 key를 반환해줘.
-"""
+            prompt=prompt
         )
     
     def run(self, message: str) -> str:
