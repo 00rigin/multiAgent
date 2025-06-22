@@ -1,12 +1,12 @@
-from fastapi import FastAPI, HTTPException
+import uuid
+from datetime import datetime
+
+from fastapi import FastAPI
 from langchain_core.messages import HumanMessage
-from app.domain.graph.setup import GraphSetup
+
 from app.MessageRequest import MessageRequest
 from app.domain.graph.TravelChatGraph import TravelChatGraph
 from app.domain.graph.memory import chat_memory
-import uuid
-from typing import Optional
-from datetime import datetime
 
 app = FastAPI(debug=True)
 travel_chatbot = TravelChatGraph()
