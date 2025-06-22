@@ -4,14 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bc751249-33a3-4c99-bb7c-a77d38acc3e4" name="Changes" comment="정리-3">
-      <change afterPath="$PROJECT_DIR$/app/component/mail/MailInterface.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/component/mail/gmail/GmailComponent.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/domain/agents/mailAgent/MailAgent.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+    <list default="true" id="bc751249-33a3-4c99-bb7c-a77d38acc3e4" name="Changes" comment="gamil API 추가">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/config/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/config/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/domain/agents/mailAgent/MailAgent.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/domain/agents/mailAgent/MailAgent.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/domain/agents/supervisor/supervisor.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/domain/agents/supervisor/supervisor.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/domain/graph/setup.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/domain/graph/setup.py" afterDir="false" />
     </list>
     <list id="05167d0b-2038-44ad-95d1-1fdd8a05b05b" name="env" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -75,11 +72,11 @@
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Personal\multiAgent\app\component\calendar\KakaoCalendar" />
       <recent name="C:\Personal\multiAgent\resources" />
       <recent name="C:\Personal\multiAgent\app\component\calendar" />
       <recent name="C:\Personal\multiAgent\app\config" />
       <recent name="C:\Personal\multiAgent\app" />
-      <recent name="C:\Personal\multiAgent" />
     </key>
   </component>
   <component name="RunManager" selected="FastAPI.FastAPIProject">
@@ -147,7 +144,7 @@
       <workItem from="1750395860381" duration="1198000" />
       <workItem from="1750428014711" duration="6502000" />
       <workItem from="1750485235203" duration="2737000" />
-      <workItem from="1750519531008" duration="10647000" />
+      <workItem from="1750519531008" duration="12437000" />
     </task>
     <task id="LOCAL-00001" summary="환경 구성">
       <option name="closed" value="true" />
@@ -237,7 +234,15 @@
       <option name="project" value="LOCAL" />
       <updated>1750530737318</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="gamil API 추가">
+      <option name="closed" value="true" />
+      <created>1750551279389</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1750551279389</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -268,20 +273,10 @@
     <MESSAGE value="정리 -1" />
     <MESSAGE value="카카오 캘린더 API 사용법 수정" />
     <MESSAGE value="정리-3" />
-    <option name="LAST_COMMIT_MESSAGE" value="정리-3" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/app/domain/agents/researcher/SearchAgent.py</url>
-          <line>27</line>
-          <option name="timeStamp" value="15" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="gamil API 추가" />
+    <option name="LAST_COMMIT_MESSAGE" value="gamil API 추가" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/multiAgent$FastAPIProject.coverage" NAME="FastAPIProject Coverage Results" MODIFIED="1750524834120" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/multiAgent$FastAPIProject.coverage" NAME="FastAPIProject Coverage Results" MODIFIED="1750552106195" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
   </component>
 </project>

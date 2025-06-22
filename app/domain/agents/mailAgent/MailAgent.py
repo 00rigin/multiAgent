@@ -94,7 +94,6 @@ class MailAgent:
 
 주요 기능:
 1. 이메일 발송: 지정된 수신자에게 이메일을 발송
-2. 연결 테스트: Gmail API 연결 상태를 확인
 
 사용 가능한 도구들:
 - send_email_tool: 이메일 발송

@@ -5,7 +5,7 @@ from pydantic import BaseModel
 
 from app.config.ai import openai_chat
 
-members = ["Researcher", "Calender", "Chat"]
+members = ["Researcher", "Calender", "Chat", "Mail"]
 system_prompt = (
     "You are a supervisor tasked with managing a conversation between the"
     "following workers: {members}. Given the following user request,"
@@ -15,12 +15,13 @@ system_prompt = (
     "- Researcher: 검색이나 정보 조사가 필요한 경우\n"
     "- Calender: 일정 관리나 캘린더 등록이 필요한 경우\n"
     "- Chat: 일반적인 대화나 질문에 답변이 필요한 경우"
+    "- Mail: 외부 공유 , 이메일 발송이 필요한 경우\n\n"
 )
 
 options = ["FINISH"] + members
 
 class routeResponse(BaseModel):
-    next: Literal["FINISH", "Researcher", "Calender", "Chat"]
+    next: Literal["FINISH", "Researcher", "Calender", "Chat", "Mail"]
 
 prompt = ChatPromptTemplate.from_messages(
     [
