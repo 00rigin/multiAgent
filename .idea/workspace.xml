@@ -4,11 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bc751249-33a3-4c99-bb7c-a77d38acc3e4" name="Changes" comment="gamil API 추가">
+    <list default="true" id="bc751249-33a3-4c99-bb7c-a77d38acc3e4" name="Changes" comment="메일 에이전트 연결">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/domain/agents/mailAgent/MailAgent.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/domain/agents/mailAgent/MailAgent.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/domain/agents/supervisor/supervisor.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/domain/agents/supervisor/supervisor.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/domain/graph/setup.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/domain/graph/setup.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/component/calendar/KakaoCalendar/KaKaoCalendarComponent.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/component/calendar/KakaoCalendar/KaKaoCalendarComponent.py" afterDir="false" />
     </list>
     <list id="05167d0b-2038-44ad-95d1-1fdd8a05b05b" name="env" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -144,7 +142,7 @@
       <workItem from="1750395860381" duration="1198000" />
       <workItem from="1750428014711" duration="6502000" />
       <workItem from="1750485235203" duration="2737000" />
-      <workItem from="1750519531008" duration="12437000" />
+      <workItem from="1750519531008" duration="13413000" />
     </task>
     <task id="LOCAL-00001" summary="환경 구성">
       <option name="closed" value="true" />
@@ -242,7 +240,15 @@
       <option name="project" value="LOCAL" />
       <updated>1750551279389</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="메일 에이전트 연결">
+      <option name="closed" value="true" />
+      <created>1750552804388</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1750552804388</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -274,9 +280,10 @@
     <MESSAGE value="카카오 캘린더 API 사용법 수정" />
     <MESSAGE value="정리-3" />
     <MESSAGE value="gamil API 추가" />
-    <option name="LAST_COMMIT_MESSAGE" value="gamil API 추가" />
+    <MESSAGE value="메일 에이전트 연결" />
+    <option name="LAST_COMMIT_MESSAGE" value="메일 에이전트 연결" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/multiAgent$FastAPIProject.coverage" NAME="FastAPIProject Coverage Results" MODIFIED="1750552106195" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/multiAgent$FastAPIProject.coverage" NAME="FastAPIProject Coverage Results" MODIFIED="1750553322047" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
   </component>
 </project>

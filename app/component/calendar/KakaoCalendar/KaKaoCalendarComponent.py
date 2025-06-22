@@ -19,7 +19,7 @@ class KakaoCalendarComponent(CalendarInterface):
             auth_token: Optional custom auth token (defaults to settings.KAKAO_KEY)
         """
         self.auth_token = auth_token or f"Bearer {settings.KAKAO_KEY}"
-        self.base_url = "https://kapi.kakao.com/v2/api/calendar/public"
+        self.base_url = "https://kapi.kakao.com/v2/api/calendar"
         self.headers = {
             "Authorization": self.auth_token
         }
@@ -118,7 +118,7 @@ class KakaoCalendarComponent(CalendarInterface):
         Returns:
             Updated event as dictionary
         """
-        url = f"{self.base_url}/update/event"
+        url = f"{self.base_url}/update/event/host"
         
         payload = {
         }
