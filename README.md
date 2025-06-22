@@ -104,3 +104,4 @@ multiAgent/
 ![chat1.png](statics/chat1.png)
 ![chat2.png](statics/chat2.png)
 ![chat3.png](statics/chat3.png)
+![mail.png](statics/mail.png)
