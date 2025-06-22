@@ -5,7 +5,7 @@
 """
 
 from typing import Dict, Any
-from app.config.guardrails import guardrail_system
+from app.domain.gaurdrails.guardrails import guardrail_system
 
 
 def input_guardrail_node(state: Dict[str, Any]) -> Dict[str, Any]:
