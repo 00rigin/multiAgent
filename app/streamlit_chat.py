@@ -177,7 +177,7 @@ def send_message(message, session_id=None):
         }
         
         response = requests.post(
-            f"{API_BASE_URL}/chat",
+            f"{API_BASE_URL}/api/v1/chat/",
             json=payload,
             timeout=30
         )
@@ -192,7 +192,7 @@ def send_message(message, session_id=None):
 def get_chat_history(session_id):
     """채팅 히스토리를 가져옵니다."""
     try:
-        response = requests.get(f"{API_BASE_URL}/chat/history/{session_id}")
+        response = requests.get(f"{API_BASE_URL}/api/v1/chat/history/{session_id}")
         if response.status_code == 200:
             return response.json()
         else:
@@ -203,7 +203,7 @@ def get_chat_history(session_id):
 def clear_chat_history(session_id):
     """채팅 히스토리를 삭제합니다."""
     try:
-        response = requests.delete(f"{API_BASE_URL}/chat/history/{session_id}")
+        response = requests.delete(f"{API_BASE_URL}/api/v1/chat/history/{session_id}")
         return response.status_code == 200
     except:
         return False

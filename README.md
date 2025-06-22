@@ -81,19 +81,14 @@ python run_streamlit.py
 ```
 채팅 앱이 `http://localhost:8501`에서 실행됩니다.
 
-## 🏗️ 프로젝트 구성
+## 📁 프로젝트 구조
 
 ```
 multiAgent/
-│  .env
-│  .gitignore
-│  README.md
-│  requirements.txt
-│  run_streamlit.py
-├─app
-│  │  main.py
-│  │  MessageRequest.py
-│  │  streamlit_chat.py
+├─app/
+│  ├─api/                    # 🎯 API 라우터
+│  │  └─v1/
+│  │     └─chat.py           # 채팅 API 엔드포인트
 │  ├─component
 │  │  ├─calendar
 │  │  │  │  CalendarInterface.py
@@ -111,7 +106,7 @@ multiAgent/
 │  │  ├─ai.py
 │  │  ├─settings.py
 │  │  ├─prompts.py
-│  │  └─guardrails.py          # 🛡️ 가드레일 시스템
+│  │  └─guardrail_patterns.py # 🛡️ 가드레일 패턴
 │  ├─domain
 │  │  ├─agents
 │  │  │  ├─advisor
@@ -124,18 +119,62 @@ multiAgent/
 │  │  │  │  └─SearchAgent.py
 │  │  │  └─supervisor
 │  │  │     └─supervisor.py
+│  │  ├─gaurdrails/          # 🛡️ 가드레일 시스템
+│  │  │  ├─guardrails.py
+│  │  │  └─guardrailNode.py
 │  │  └─graph
 │  │     ├─agentNode.py
 │  │     ├─AgentState.py
 │  │     ├─memory.py
 │  │     ├─setup.py
 │  │     └─TravelChatGraph.py
-├─resources
-├─statics
+│  ├─examples
+│  │  └─guardrail_example.py # 🛡️ 가드레일 사용 예제
+│  ├─main.py                 # 🎯 FastAPI 앱 진입점
+│  ├─MessageRequest.py
+│  └─streamlit_chat.py
+├─README.md
+├─requirements.txt
+├─resources/
+├─run_streamlit.py
+├─statics/
 │  ├─chat1.png
 │  ├─chat2.png
 │  ├─chat3.png
 │  └─mail.png
+```
+
+## 🚀 사용법
+
+### 1. 환경 설정
+```bash
+pip install -r requirements.txt
+```
+
+### 2. FastAPI 서버 실행
+```bash
+# 방법 1: uvicorn 직접 실행
+uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
+
+# 방법 2: main.py 실행
+python app/main.py
+```
+
+### 3. API 엔드포인트
+- **API 문서**: http://localhost:8000/docs
+- **채팅**: POST http://localhost:8000/api/v1/chat/
+- **히스토리**: GET http://localhost:8000/api/v1/chat/history/{session_id}
+- **통계**: GET http://localhost:8000/api/v1/chat/stats
+- **상태 확인**: GET http://localhost:8000/health
+
+### 4. 가드레일 시스템 테스트
+```bash
+python app/examples/guardrail_example.py
+```
+
+### 5. Streamlit 웹 인터페이스 실행
+```bash
+python run_streamlit.py
 ```
 
 ## 📝 프롬프트 관리 시스템 사용법

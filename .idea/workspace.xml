@@ -4,11 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bc751249-33a3-4c99-bb7c-a77d38acc3e4" name="Changes" comment="사용하지 않는 NaverSearchAPIWrapper.py 삭제">
+    <list default="true" id="bc751249-33a3-4c99-bb7c-a77d38acc3e4" name="Changes" comment="가드레일 패턴 config 분리">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/config/guardrails.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/domain/gaurdrails/guardrails.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/domain/graph/guardrailNode.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/domain/gaurdrails/guardrailNode.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/domain/graph/setup.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/domain/graph/setup.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/config/prompts.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/config/prompts.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/domain/agents/researcher/SearchAgent.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/domain/agents/researcher/SearchAgent.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/streamlit_chat.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/streamlit_chat.py" afterDir="false" />
     </list>
     <list id="05167d0b-2038-44ad-95d1-1fdd8a05b05b" name="env" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -146,7 +148,7 @@
       <workItem from="1750485235203" duration="2737000" />
       <workItem from="1750519531008" duration="19200000" />
       <workItem from="1750561644561" duration="572000" />
-      <workItem from="1750568861009" duration="796000" />
+      <workItem from="1750568861009" duration="1948000" />
     </task>
     <task id="LOCAL-00001" summary="환경 구성">
       <option name="closed" value="true" />
@@ -300,7 +302,15 @@
       <option name="project" value="LOCAL" />
       <updated>1750562223840</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="가드레일 패턴 config 분리">
+      <option name="closed" value="true" />
+      <created>1750570043339</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1750570043339</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -339,7 +349,8 @@
     <MESSAGE value="readme.md 수정-1" />
     <MESSAGE value="search 인터페이스로 분리" />
     <MESSAGE value="사용하지 않는 NaverSearchAPIWrapper.py 삭제" />
-    <option name="LAST_COMMIT_MESSAGE" value="사용하지 않는 NaverSearchAPIWrapper.py 삭제" />
+    <MESSAGE value="가드레일 패턴 config 분리" />
+    <option name="LAST_COMMIT_MESSAGE" value="가드레일 패턴 config 분리" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

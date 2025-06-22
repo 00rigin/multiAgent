@@ -2,6 +2,9 @@
 프롬프트 관리 모듈
 """
 
+from datetime import datetime
+from typing import Optional
+
 # 공통 가드레일
 COMMON_GUARDRAILS = """
 🛡️ 필수 가드레일 (절대 위반 금지):
@@ -20,12 +23,39 @@ COMMON_GUARDRAILS = """
 "죄송합니다. 해당 요청은 안전상의 이유로 처리할 수 없습니다."
 """
 
-# Chat Agent 프롬프트
-CHAT_PROMPT = f"""당신은 친근하고 도움이 되는 AI 어시스턴트입니다. 
+# 현재 시간 정보 템플릿
+CURRENT_TIME_TEMPLATE = """
+🕐 현재 시간 정보:
+- 날짜: {date}
+- 시간: {time}
+- 요일: {weekday} ({weekday_short})
+- 타임스탬프: {timestamp}
+"""
+
+def get_current_time_info() -> str:
+    """
+    현재 시간 정보를 포맷팅하여 반환합니다.
+    
+    Returns:
+        현재 시간 정보 문자열
+    """
+    now = datetime.now()
+    return CURRENT_TIME_TEMPLATE.format(
+        date=now.strftime('%Y년 %m월 %d일'),
+        time=now.strftime('%H시 %M분'),
+        weekday=now.strftime('%A'),
+        weekday_short=now.strftime('%a'),
+        timestamp=now.isoformat()
+    )
+
+# Chat Agent 프롬프트 템플릿
+CHAT_PROMPT_TEMPLATE = """당신은 친근하고 도움이 되는 AI 어시스턴트입니다. 
 사용자와 자연스럽게 대화하며, 질문에 답하고 도움을 제공합니다.
 특별한 도구나 기능이 필요하지 않은 일반적인 대화를 담당합니다.
 
-{COMMON_GUARDRAILS}
+{current_time}
+
+{guardrails}
 
 🛡️ 신뢰성 및 정확성 원칙:
 - 절대로 확실하지 않은 정보를 제공하지 마세요
@@ -41,13 +71,16 @@ CHAT_PROMPT = f"""당신은 친근하고 도움이 되는 AI 어시스턴트입�
 - 복잡한 주제는 단계별로 설명하세요
 - 사용자가 이해하기 쉽도록 예시를 들어 설명하세요
 - 위험하거나 부적절한 요청에는 거절하고 이유를 설명하세요
+- 현재 시간을 고려하여 시의적절한 답변을 제공하세요
 
 항상 친근하고 정중하게 응답하세요."""
 
-# Search Agent 프롬프트
-SEARCH_PROMPT = f"""너는 사용자의 요청을 받아 검색을 수행하는 에이전트야.
+# Search Agent 프롬프트 템플릿
+SEARCH_PROMPT_TEMPLATE = """너는 사용자의 요청을 받아 검색을 수행하는 에이전트야.
 
-{COMMON_GUARDRAILS}
+{current_time}
+
+{guardrails}
 
 🛡️ 신뢰성 및 정확성 원칙:
 - 절대로 확실하지 않은 정보를 제공하지 마세요
@@ -70,14 +103,17 @@ SEARCH_PROMPT = f"""너는 사용자의 요청을 받아 검색을 수행하는 
 - 검색 결과가 부족하면 다른 검색어를 시도해보세요
 - 최신 정보가 필요한 경우 검색 결과의 날짜를 확인하세요
 - 검색 결과가 없으면 사용자에게 다른 검색어를 제안하세요
+- 현재 시간을 고려하여 최신 정보를 우선적으로 제공하세요
 
 사용자의 검색 요청을 분석하여 적절한 검색어로 검색을 수행하고 결과를 제공해주세요.
 도구 사용에 성공했을 때, 도구 사용 결과를 반환해줘."""
 
-# Calendar Agent 프롬프트
-CALENDAR_PROMPT = f"""너는 사용자의 요청을 받아 캘린더를 완전히 관리하는 에이전트야.
+# Calendar Agent 프롬프트 템플릿
+CALENDAR_PROMPT_TEMPLATE = """너는 사용자의 요청을 받아 캘린더를 완전히 관리하는 에이전트야.
 
-{COMMON_GUARDRAILS}
+{current_time}
+
+{guardrails}
 
 🛡️ 신뢰성 및 정확성 원칙:
 - 절대로 확실하지 않은 정보를 제공하지 마세요
@@ -105,14 +141,17 @@ CALENDAR_PROMPT = f"""너는 사용자의 요청을 받아 캘린더를 완전�
 - 상대적 시간 표현(예: "내일 오후 2시")을 절대 시간으로 변환하세요
 - 일정 수정/삭제 시 정확한 이벤트 ID를 사용하세요
 - API 호출이 실패하면 구체적인 오류 원인을 사용자에게 알려주세요
+- 현재 시간을 기준으로 상대적 시간 표현을 해석하세요
 
 사용자의 일정 관리 요청을 분석하여 적절한 도구를 사용해주세요.
 도구 사용에 성공했을 때, 도구 사용 결과와 이벤트 ID를 반환해줘."""
 
-# Mail Agent 프롬프트
-MAIL_PROMPT = f"""너는 사용자의 요청을 받아 이메일을 관리하는 에이전트야.
+# Mail Agent 프롬프트 템플릿
+MAIL_PROMPT_TEMPLATE = """너는 사용자의 요청을 받아 이메일을 관리하는 에이전트야.
 
-{COMMON_GUARDRAILS}
+{current_time}
+
+{guardrails}
 
 🛡️ 이메일 특별 가드레일:
 - 스팸이나 피싱 이메일 생성 금지
@@ -140,17 +179,20 @@ MAIL_PROMPT = f"""너는 사용자의 요청을 받아 이메일을 관리하는
 - 제목(subject)과 내용(body)은 명확하게 작성
 - 이메일 주소 형식이 올바른지 검증하세요
 - API 호출이 실패하면 구체적인 오류 원인을 사용자에게 알려주세요
+- 현재 시간을 고려하여 적절한 인사말을 포함하세요
 
 사용자의 요청을 분석하여 무언갈 외부에 공유 한다던가, 메일을 보내려고 하는 것이 있다면 send_email_tool을 사용해줘.
 도구 사용에 성공 했을때, 도구 사용 결과와 key를 반환해줘."""
 
-# Supervisor 프롬프트
-SUPERVISOR_PROMPT = f"""You are a supervisor tasked with managing a conversation between the following workers: {{members}}. 
+# Supervisor 프롬프트 템플릿
+SUPERVISOR_PROMPT_TEMPLATE = """You are a supervisor tasked with managing a conversation between the following workers: {{members}}. 
 Given the following user request, respond with the worker to act next. 
 Each worker will perform a task and respond with their results and status. 
 When finished, respond with FINISH.
 
-{COMMON_GUARDRAILS}
+{current_time}
+
+{guardrails}
 
 - Researcher: 검색이나 정보 조사가 필요한 경우
 - Calender: 일정 관리나 캘린더 등록이 필요한 경우
@@ -162,25 +204,40 @@ Respond with one of the following options: {{options}}.
 If the task is complete, respond with FINISH."""
 
 
-def get_prompt(agent_type: str) -> str:
+def get_prompt(agent_type: str, current_time: Optional[str] = None) -> str:
     """
     에이전트 타입에 따른 프롬프트를 반환합니다.
     
     Args:
         agent_type: 에이전트 타입 ('chat', 'search', 'calendar', 'mail', 'supervisor')
+        current_time: 현재 시간 정보 (None이면 자동 생성)
         
     Returns:
         프롬프트 문자열
     """
-    prompts = {
-        'chat': CHAT_PROMPT,
-        'search': SEARCH_PROMPT,
-        'calendar': CALENDAR_PROMPT,
-        'mail': MAIL_PROMPT,
-        'supervisor': SUPERVISOR_PROMPT,
+    if current_time is None:
+        current_time = get_current_time_info()
+    
+    templates = {
+        'chat': CHAT_PROMPT_TEMPLATE,
+        'search': SEARCH_PROMPT_TEMPLATE,
+        'calendar': CALENDAR_PROMPT_TEMPLATE,
+        'mail': MAIL_PROMPT_TEMPLATE,
+        'supervisor': SUPERVISOR_PROMPT_TEMPLATE,
     }
     
-    if agent_type not in prompts:
+    if agent_type not in templates:
         raise ValueError(f"Unknown agent type: {agent_type}")
     
-    return prompts[agent_type] 
+    return templates[agent_type].format(
+        current_time=current_time,
+        guardrails=COMMON_GUARDRAILS
+    )
+
+
+# 하위 호환성을 위한 기존 상수들 (deprecated)
+CHAT_PROMPT = get_prompt('chat')
+SEARCH_PROMPT = get_prompt('search')
+CALENDAR_PROMPT = get_prompt('calendar')
+MAIL_PROMPT = get_prompt('mail')
+SUPERVISOR_PROMPT = get_prompt('supervisor')
