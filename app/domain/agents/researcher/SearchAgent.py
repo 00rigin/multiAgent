@@ -1,6 +1,7 @@
 from langgraph.prebuilt import create_react_agent
 from langchain.tools import tool
 from typing import Optional
+from datetime import datetime
 
 from app.config.ai import openai_chat
 from app.component.search.SearchInterface import SearchInterface
@@ -67,11 +68,16 @@ class SearchAgent:
         # 도구 생성
         self.search_tool = tool(search_tool)
 
+        # 현재 날짜 정보
+        current_date = datetime.now().strftime("%Y년 %m월 %d일 (%A)")
+        
         # React Agent 생성
         self.agent = create_react_agent(
             self.llm,
             tools=[self.search_tool],
-            prompt="""너는 사용자의 요청을 받아 검색을 수행하는 에이전트야.
+            prompt=f"""너는 사용자의 요청을 받아 검색을 수행하는 에이전트야.
+
+📅 현재 날짜: {current_date}
 
 🛡️ 신뢰성 및 정확성 원칙:
 - 절대로 확실하지 않은 정보를 제공하지 마세요
@@ -94,6 +100,7 @@ class SearchAgent:
 - 검색 결과가 부족하면 다른 검색어를 시도해보세요
 - 최신 정보가 필요한 경우 검색 결과의 날짜를 확인하세요
 - 검색 결과가 없으면 사용자에게 다른 검색어를 제안하세요
+- 날짜 관련 검색 시 현재 날짜({current_date})를 기준으로 상대적 날짜를 계산하세요
 
 사용자의 검색 요청을 분석하여 적절한 검색어로 검색을 수행하고 결과를 제공해주세요.
 도구 사용에 성공했을 때, 도구 사용 결과를 반환해줘.

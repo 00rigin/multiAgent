@@ -1,6 +1,7 @@
 from langgraph.prebuilt import create_react_agent
 from langchain.tools import tool
 from typing import Optional
+from datetime import datetime
 
 from app.config.ai import openai_chat
 from app.component.calendar.KakaoCalendar.KaKaoCalendarComponent import KakaoCalendarComponent
@@ -179,6 +180,9 @@ class CalenderAgent:
         self.update_event_tool = tool(update_calendar_event_tool)
         self.delete_event_tool = tool(delete_calendar_event_tool)
 
+        # 현재 날짜 정보
+        current_date = datetime.now().strftime("%Y년 %m월 %d일 (%A)")
+
         # React Agent 생성
         self.agent = create_react_agent(
             self.llm,
@@ -188,7 +192,9 @@ class CalenderAgent:
                 self.update_event_tool,
                 self.delete_event_tool,
             ],
-            prompt="""너는 사용자의 요청을 받아 캘린더를 완전히 관리하는 에이전트야.
+            prompt=f"""너는 사용자의 요청을 받아 캘린더를 완전히 관리하는 에이전트야.
+
+📅 현재 날짜: {current_date}
 
 🛡️ 신뢰성 및 정확성 원칙:
 - 절대로 확실하지 않은 정보를 제공하지 마세요
@@ -216,9 +222,10 @@ class CalenderAgent:
 - API 호출이 실패하면 구체적인 오류 원인을 사용자에게 알려주세요
 
 일정 시간 형식: ISO 8601 (YYYY-MM-DDTHH:MM:SSZ)
-예시:
-- "내일 오후 2시부터 4시까지 회의" : 오늘이 2025.06.22 라면 → start_at: "2025-06-23T14:00:00Z", end_at: "2025-06-23T16:00:00Z"
-- "다음주 월요일 종일 휴가":  오늘이 2025.06.22 라면 → start_at: "2025-06-30T00:00:00Z", end_at: "2025-06-30T23:59:59Z", all_day: True
+현재 날짜 기준({current_date})으로 상대적 날짜 계산:
+- "내일 오후 2시부터 4시까지 회의" → 현재 날짜 + 1일, 14:00-16:00
+- "다음주 월요일 종일 휴가" → 현재 날짜 기준 다음 월요일, 00:00-23:59
+- "3일 후 오전 10시 회의" → 현재 날짜 + 3일, 10:00-11:00
 
 사용자의 요청을 분석하여 적절한 도구를 선택하고 실행해줘.
 도구 사용에 성공 했을때, 도구 사용 결과와 key를 반환해줘.
