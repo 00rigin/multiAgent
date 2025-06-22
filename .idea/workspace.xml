@@ -1,40 +1,94 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="bc751249-33a3-4c99-bb7c-a77d38acc3e4" name="Changes" comment="" />
+    <list default="true" id="bc751249-33a3-4c99-bb7c-a77d38acc3e4" name="Changes" comment="chat API 위치 이동 / promt에 날짜 추가">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/api/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/api/v1/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/component/search/SearchInterface.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/component/search/SearchInterface.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/domain/agents/mailAgent/MailAgent.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/domain/agents/mailAgent/MailAgent.py" afterDir="false" />
+    </list>
+    <list id="05167d0b-2038-44ad-95d1-1fdd8a05b05b" name="env" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Dockerfile" />
+        <option value="Python Script" />
+      </list>
+    </option>
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 3
-}]]></component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="develop" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RESET_MODE" value="HARD" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;00rigin&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/00rigin/multiAgent.git&quot;,
+    &quot;accountId&quot;: &quot;0314a4c5-aeda-470c-95d6-5929ab04b19b&quot;
+  }
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 3
+}</component>
   <component name="ProjectId" id="2yaWoDxYE8U3frOKYnuQHxGlal6" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "master",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Docker.Dockerfile.executor&quot;: &quot;Run&quot;,
+    &quot;FastAPI.FastAPIProject.executor&quot;: &quot;Debug&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;feature/yhj-1&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
-  <component name="RunManager">
+}</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Personal\multiAgent\app\domain\gaurdrails" />
+      <recent name="C:\Personal\multiAgent\statics" />
+      <recent name="C:\Personal\multiAgent\app\component\calendar\KakaoCalendar" />
+      <recent name="C:\Personal\multiAgent\resources" />
+      <recent name="C:\Personal\multiAgent\app\component\calendar" />
+    </key>
+  </component>
+  <component name="RunManager" selected="FastAPI.FastAPIProject">
     <configuration name="FastAPIProject" type="Python.FastAPI">
-      <option name="file" value="$PROJECT_DIR$/main.py" />
+      <option name="file" value="$PROJECT_DIR$/app/main.py" />
       <module name="FastAPIProject" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
-      <option name="SDK_HOME" value="" />
+      <option name="SDK_HOME" value="$PROJECT_DIR$/../../MIDAS/FastAPIProject/.venv/Scripts/python.exe" />
+      <option name="SDK_NAME" value="Python 3.10 (FastAPIProject)" />
       <option name="WORKING_DIRECTORY" value="" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
@@ -43,6 +97,30 @@
       <option name="launchJavascriptDebuger" value="false" />
       <method v="2" />
     </configuration>
+    <configuration name="Dockerfile" type="docker-deploy" factoryName="dockerfile" temporary="true" server-name="Docker">
+      <deployment type="dockerfile">
+        <settings>
+          <option name="containerName" value="" />
+          <option name="sourceFilePath" value="Dockerfile" />
+        </settings>
+      </deployment>
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="docker-deploy" factoryName="dockerfile" temporary="true">
+      <deployment type="dockerfile">
+        <settings />
+      </deployment>
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Docker.Dockerfile" />
+      <item itemvalue="FastAPI.FastAPIProject" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Docker.Dockerfile" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
@@ -56,16 +134,197 @@
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="bc751249-33a3-4c99-bb7c-a77d38acc3e4" name="Changes" comment="" />
+      <changelist id="05167d0b-2038-44ad-95d1-1fdd8a05b05b" name="env" comment="" />
       <created>1750073337010</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1750073337010</updated>
       <workItem from="1750073338094" duration="7000" />
+      <workItem from="1750083152930" duration="7028000" />
+      <workItem from="1750253892456" duration="1414000" />
+      <workItem from="1750395860381" duration="1198000" />
+      <workItem from="1750428014711" duration="6502000" />
+      <workItem from="1750485235203" duration="2737000" />
+      <workItem from="1750519531008" duration="19200000" />
+      <workItem from="1750561644561" duration="572000" />
+      <workItem from="1750568861009" duration="2367000" />
     </task>
+    <task id="LOCAL-00001" summary="환경 구성">
+      <option name="closed" value="true" />
+      <created>1750089314289</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1750089314289</updated>
+    </task>
+    <task id="LOCAL-00002" summary="네이버 검색 / 카카오 캘린더 연결해보기">
+      <option name="closed" value="true" />
+      <created>1750250309881</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1750250309881</updated>
+    </task>
+    <task id="LOCAL-00003" summary="workflow settings">
+      <option name="closed" value="true" />
+      <created>1750255364881</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1750255364881</updated>
+    </task>
+    <task id="LOCAL-00004" summary="api 수정">
+      <option name="closed" value="true" />
+      <created>1750495851460</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1750495851460</updated>
+    </task>
+    <task id="LOCAL-00005" summary="메모리 기능 추가">
+      <option name="closed" value="true" />
+      <created>1750497081850</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1750497081850</updated>
+    </task>
+    <task id="LOCAL-00006" summary="메모리 기능 추가">
+      <option name="closed" value="true" />
+      <created>1750497104088</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1750497104088</updated>
+    </task>
+    <task id="LOCAL-00007" summary="UI 1차">
+      <option name="closed" value="true" />
+      <created>1750498497736</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1750498497736</updated>
+    </task>
+    <task id="LOCAL-00008" summary="UI 2차">
+      <option name="closed" value="true" />
+      <created>1750501325709</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1750501325709</updated>
+    </task>
+    <task id="LOCAL-00009" summary="정리 -1">
+      <option name="closed" value="true" />
+      <created>1750522639808</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1750522639808</updated>
+    </task>
+    <task id="LOCAL-00010" summary="카카오 캘린더 API 사용법 수정">
+      <option name="closed" value="true" />
+      <created>1750524977167</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1750524977167</updated>
+    </task>
+    <task id="LOCAL-00011" summary="정리-3">
+      <option name="closed" value="true" />
+      <created>1750530737318</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1750530737318</updated>
+    </task>
+    <task id="LOCAL-00012" summary="gamil API 추가">
+      <option name="closed" value="true" />
+      <created>1750551279389</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1750551279389</updated>
+    </task>
+    <task id="LOCAL-00013" summary="메일 에이전트 연결">
+      <option name="closed" value="true" />
+      <created>1750552804388</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1750552804388</updated>
+    </task>
+    <task id="LOCAL-00014" summary="카카오 캘린더 API path 수정">
+      <option name="closed" value="true" />
+      <created>1750553665167</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1750553665167</updated>
+    </task>
+    <task id="LOCAL-00015" summary="캘린더 사용 수정-event id 대화에 보이도록">
+      <option name="closed" value="true" />
+      <created>1750557714486</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1750557714486</updated>
+    </task>
+    <task id="LOCAL-00016" summary="readme.md 작성">
+      <option name="closed" value="true" />
+      <created>1750559675186</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1750559675186</updated>
+    </task>
+    <task id="LOCAL-00017" summary="readme.md 수정-1">
+      <option name="closed" value="true" />
+      <created>1750559975736</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1750559975736</updated>
+    </task>
+    <task id="LOCAL-00018" summary="search 인터페이스로 분리">
+      <option name="closed" value="true" />
+      <created>1750561810374</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1750561810374</updated>
+    </task>
+    <task id="LOCAL-00019" summary="사용하지 않는 NaverSearchAPIWrapper.py 삭제">
+      <option name="closed" value="true" />
+      <created>1750562223840</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1750562223840</updated>
+    </task>
+    <task id="LOCAL-00020" summary="가드레일 패턴 config 분리">
+      <option name="closed" value="true" />
+      <created>1750570043339</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1750570043339</updated>
+    </task>
+    <task id="LOCAL-00021" summary="chat API 위치 이동 / promt에 날짜 추가">
+      <option name="closed" value="true" />
+      <created>1750570949553</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1750570949553</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="UnknownFeatures">
+    <option featureType="com.intellij.fileTypeFactory" implementationName=".env" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -77,5 +336,52 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="환경 구성" />
+    <MESSAGE value="네이버 검색 / 카카오 캘린더 연결해보기" />
+    <MESSAGE value="workflow settings" />
+    <MESSAGE value="api 수정" />
+    <MESSAGE value="메모리 기능 추가" />
+    <MESSAGE value="UI 1차" />
+    <MESSAGE value="UI 2차" />
+    <MESSAGE value="정리 -1" />
+    <MESSAGE value="카카오 캘린더 API 사용법 수정" />
+    <MESSAGE value="정리-3" />
+    <MESSAGE value="gamil API 추가" />
+    <MESSAGE value="메일 에이전트 연결" />
+    <MESSAGE value="카카오 캘린더 API path 수정" />
+    <MESSAGE value="캘린더 사용 수정-event id 대화에 보이도록" />
+    <MESSAGE value="readme.md 작성" />
+    <MESSAGE value="readme.md 수정-1" />
+    <MESSAGE value="search 인터페이스로 분리" />
+    <MESSAGE value="사용하지 않는 NaverSearchAPIWrapper.py 삭제" />
+    <MESSAGE value="가드레일 패턴 config 분리" />
+    <MESSAGE value="chat API 위치 이동 / promt에 날짜 추가" />
+    <option name="LAST_COMMIT_MESSAGE" value="chat API 위치 이동 / promt에 날짜 추가" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/app/domain/gaurdrails/guardrails.py</url>
+          <line>87</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/app/domain/gaurdrails/guardrailNode.py</url>
+          <line>20</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/app/domain/agents/advisor/ChatAgent.py</url>
+          <line>27</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/multiAgent$FastAPIProject.coverage" NAME="FastAPIProject Coverage Results" MODIFIED="1750569373417" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
   </component>
 </project>
