@@ -4,7 +4,7 @@ from typing import Optional
 from datetime import datetime
 
 from app.config.ai import openai_chat
-from app.component.calendar.KakaoCalendar.KaKaoCalendarComponent import KakaoCalendarComponent
+from app.component.calendar.kakaoCalendar.KaKaoCalendarComponent import KakaoCalendarComponent
 from app.component.calendar.CalendarInterface import CalendarInterface
 from app.config.prompts import get_prompt
 
