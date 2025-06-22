@@ -60,6 +60,8 @@ LangChain과 LangGraph를 사용한 멀티 에이전트 채팅 시스템입니�
 
 ## 📋 설치 및 실행
 
+### Python3.10
+
 ### 1. 의존성 설치
 ```bash
 pip install -r requirements.txt
@@ -92,28 +94,38 @@ python run_streamlit.py
 
 ```
 multiAgent/
-├─app/
-│  ├─api/                    # 🎯 API 라우터
-│  │  └─v1/
-│  │     └─chat.py           # 채팅 API 엔드포인트
+│  .env
+│  .gitignore
+│  README.md
+│  requirements.txt
+│  run_streamlit.py
+│  test_main.http
+│
+├─app
+│  │  main.py
+│  │  MessageRequest.py
+│  │  streamlit_chat.py
+│  ├─api
+│  │  └─v1
+│  │      └─chat.py
 │  ├─component
 │  │  ├─calendar
 │  │  │  │  CalendarInterface.py
 │  │  │  └─kakaoCalendar
-│  │  │     └─KaKaoCalendarComponent.py
+│  │  │      └─KaKaoCalendarComponent.py
 │  │  ├─mail
-│  │  │  ├─gmail
-│  │  │  │  └─GmailComponent.py
-│  │  │  └─MailInterface.py
-│  │  └─search
-│  │     ├─naver
-│  │     │  └─NaverSearchComponent.py
-│  │     └─SearchInterface.py
+│  │  │  │  MailInterface.py
+│  │  │  └─gmail
+│  │  │      └─GmailComponent.py
+│  │  ├─search
+│  │  │  │  SearchInterface.py
+│  │  │  └─naver
+│  │  │      └─NaverSearchComponent.py
 │  ├─config
-│  │  ├─ai.py
-│  │  ├─settings.py
-│  │  ├─prompts.py
-│  │  └─guardrail_patterns.py # 🛡️ 가드레일 패턴
+│  │  │  ai.py
+│  │  │  guardrail_patterns.py
+│  │  │  prompts.py
+│  │  │  settings.py
 │  ├─domain
 │  │  ├─agents
 │  │  │  ├─advisor
@@ -124,31 +136,22 @@ multiAgent/
 │  │  │  │  └─MailAgent.py
 │  │  │  ├─researcher
 │  │  │  │  └─SearchAgent.py
-│  │  │  └─supervisor
-│  │  │     └─supervisor.py
-│  │  ├─gaurdrails/          # 🛡️ 가드레일 시스템
-│  │  │  ├─guardrails.py
-│  │  │  └─guardrailNode.py
-│  │  └─graph
-│  │     ├─agentNode.py
-│  │     ├─AgentState.py
-│  │     ├─memory.py
-│  │     ├─setup.py
-│  │     └─TravelChatGraph.py
-│  ├─examples
-│  │  └─guardrail_example.py # 🛡️ 가드레일 사용 예제
-│  ├─main.py                 # 🎯 FastAPI 앱 진입점
-│  ├─MessageRequest.py
-│  └─streamlit_chat.py
-├─README.md
-├─requirements.txt
-├─resources/
-├─run_streamlit.py
-├─statics/
-│  ├─chat1.png
-│  ├─chat2.png
-│  ├─chat3.png
-│  └─mail.png
+│  │  │  ├─supervisor
+│  │  │  │  └─supervisor.py
+│  │  │  └─AgentType.py
+│  │  ├─gaurdrails
+│  │  │  ├─guardrailNode.py
+│  │  │  └─guardrails.py
+│  │  ├─graph
+│  │  │  ├─agentNode.py
+│  │  │  ├─AgentState.py
+│  │  │  ├─memory.py
+│  │  │  ├─setup.py
+│  │  │  └─TravelChatGraph.py
+│
+├─resources
+│      credentials.json
+│      token.json
 ```
 
 ## 동작 결과
@@ -156,3 +159,14 @@ multiAgent/
 ![chat2.png](statics/chat2.png)
 ![chat3.png](statics/chat3.png)
 ![mail.png](statics/mail.png)
+
+
+## 사용 개발 도구
+### PyCharm
+기본 적인 작업을 수행할 때 사용.
+### Cursor
+프론트 화면 구현시 100% 사용.
+서버 작업시 50% 사용.
+예시를 하나 만들고 이를 따라할 수 있도록 지도하여 개발을 수행함.
+ex) Agent 하나 만들고 스타일 따라하여 다른 Agent 만들기
+ex) Tool의 interface-구현체 분리 작업후 다른 컴포넌트도 똑같이 분리하기 등.
