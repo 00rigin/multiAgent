@@ -1,44 +1,120 @@
 from langgraph.prebuilt import create_react_agent
-from langchain_core.tools import Tool
+from langchain.tools import tool
+from typing import Optional
 
 from app.config.ai import openai_chat
-from app.domain.agents.researcher.NaverSearchAPIWrapper import NaverSearchAPIWrapper
+from app.component.search.SearchInterface import SearchInterface
+from app.component.search.NaverSearchComponent import NaverSearchComponent
+
 
 class SearchAgent:
-
     def __init__(
         self,
-        llm = None,
+        llm=None,
+        search_component: Optional[SearchInterface] = None,
         display: int = 5,
         start: int = 1,
         sort: str = "date"
     ):
-        # 1) 네이버 검색 래퍼 초기화
+        """
+        Initialize SearchAgent with optional search component.
+        
+        Args:
+            llm: Language model to use
+            search_component: Search implementation (defaults to NaverSearchComponent)
+            display: Number of search results to display
+            start: Starting position for search results
+            sort: Sort order for search results
+        """
         self.llm = llm or openai_chat
-        self.wrapper = NaverSearchAPIWrapper(
-            display=display,
-            start=start,
-            sort=sort
-        )
+        
+        # Search component initialization
+        if search_component:
+            self.search_component = search_component
+        else:
+            # Default to Naver Search
+            self.search_component = NaverSearchComponent(
+                display=display,
+                start=start,
+                sort=sort
+            )
 
-        # 2) 툴 정의: 동기 검색 함수를 별도로 정의
-        def naver_search_tool(query: str) -> str:
-            """Tool 내부에서 호출되는 동기 검색 메서드"""
-            print("==Running Naver Search Tool with query:", query)
-            return self.wrapper.run(query)
+        def search_tool(query: str) -> str:
+            """
+            Search for information using the search component.
+            
+            Args:
+                query: 검색 쿼리
+            """
+            print("============ Search Information ===============")
+            print(f"Query: {query}")
+            
+            try:
+                result = self.search_component.search(query)
+                
+                print(f"Search API Response: {result}")
+                
+                if result and "No good" not in result:
+                    return f"✅ 검색이 완료되었습니다!\n\n🔍 검색 결과:\n{result}"
+                else:
+                    return "❌ 검색 결과를 찾을 수 없습니다. 다른 검색어를 시도해보세요."
+                    
+            except Exception as e:
+                error_msg = f"검색에 실패했습니다: {str(e)}"
+                print(f"Error: {error_msg}")
+                return f"❌ 오류: {error_msg}"
 
-        self.search_tool = Tool(
-            name="naver_search",
-            func=naver_search_tool,
-            description=(
-                "네이버 OpenAPI로 검색을 수행합니다."
-                " 입력(query: str) → 검색 결과 description 합쳐서 반환"
-            ),
-        )
+        # 도구 생성
+        self.search_tool = tool(search_tool)
 
-        # 3) React Agent 생성 (AgentExecutor 없이)
+        # React Agent 생성
         self.agent = create_react_agent(
             self.llm,
             tools=[self.search_tool],
-            prompt= "You are a helpful search agent that uses the Naver OpenAPI to find information."
+            prompt="""너는 사용자의 요청을 받아 검색을 수행하는 에이전트야.
+
+🛡️ 신뢰성 및 정확성 원칙:
+- 절대로 확실하지 않은 정보를 제공하지 마세요
+- 검색 결과만을 기반으로 응답하세요
+- 검색 결과가 없으면 "검색 결과를 찾을 수 없습니다"라고 솔직히 말하세요
+- 추측이나 가정을 바탕으로 한 정보는 제공하지 마세요
+- "모르겠습니다" 또는 "확인할 수 없습니다"라고 솔직히 말하세요
+
+주요 기능:
+1. 정보 검색: 사용자의 질문에 대한 정보를 검색
+2. 결과 요약: 검색 결과를 사용자가 이해하기 쉽게 요약
+3. 정확성 확인: 검색 결과의 신뢰성을 확인
+
+사용 가능한 도구들:
+- search_tool: 정보 검색 수행
+
+💡 검색 가이드라인:
+- 사용자의 질문을 정확히 이해하고 적절한 검색어를 사용하세요
+- 검색 결과를 요약하여 사용자에게 제공하세요
+- 검색 결과가 부족하면 다른 검색어를 시도해보세요
+- 최신 정보가 필요한 경우 검색 결과의 날짜를 확인하세요
+- 검색 결과가 없으면 사용자에게 다른 검색어를 제안하세요
+
+사용자의 검색 요청을 분석하여 적절한 검색어로 검색을 수행하고 결과를 제공해주세요.
+도구 사용에 성공했을 때, 도구 사용 결과를 반환해줘.
+"""
         )
+    
+    def run(self, message: str) -> str:
+        """
+        Run the search agent with a user message.
+        
+        Args:
+            message: User's message requesting search operations
+            
+        Returns:
+            Agent's response
+        """
+        try:
+            # Agent 실행
+            result = self.agent.invoke({"input": message})
+            return result["output"]
+        except Exception as e:
+            error_msg = f"검색 에이전트 실행 중 오류가 발생했습니다: {str(e)}"
+            print(f"SearchAgent Error: {error_msg}")
+            return error_msg
