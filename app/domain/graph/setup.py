@@ -6,8 +6,8 @@ from mypy.types import names
 
 from app.domain.agents.calenderMaker.CalenderAgent import CalenderAgent
 from app.domain.agents.researcher.SearchAgent import SearchAgent
-from app.domain.agents.advisor.chat_agent import ChatAgent
-from app.domain.agents.supervisor.supervisor import supervisor_agent
+from app.domain.agents.advisor.ChatAgent import ChatAgent
+from app.domain.agents.supervisor.supervisor import Supervisor
 from app.domain.agents.mailAgent.MailAgent import MailAgent
 from app.domain.graph.AgentState import AgentState
 from app.domain.graph.agentNode import agent_node
@@ -20,6 +20,7 @@ class GraphSetup:
         self.calender_agent = CalenderAgent()
         self.chat_agent = ChatAgent()
         self.mail_agent = MailAgent()
+        self.supervisor = Supervisor()
 
     def setup_graph(self):
         workflow = StateGraph(AgentState)
@@ -44,7 +45,7 @@ class GraphSetup:
         workflow.add_node("Calender", calender_node)
         workflow.add_node("Mail", mail_node)
         workflow.add_node("Chat", self.chat_agent.invoke)
-        workflow.add_node("supervisor", supervisor_agent)
+        workflow.add_node("supervisor", self.supervisor.invoke)
 
         workflow.add_edge("Researcher", "supervisor")
         workflow.add_edge("Calender", "supervisor")
