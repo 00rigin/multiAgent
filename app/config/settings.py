@@ -6,7 +6,6 @@ class LocalSettings(BaseSettings):
     NAVER_CLIENT_ID: str
     NAVER_CLIENT_SECRET: str
     KAKAO_KEY: str
-    # Gmail API settings
     GOOGLE_CREDENTIAL_PATH: str
     GMAIL_TOKEN_PATH: str
 

@@ -24,8 +24,7 @@ class KakaoCalendarComponent(CalendarInterface):
             "Authorization": self.auth_token
         }
     
-    def create_event(self, title: str, description: str, start_at: str, end_at: str, 
-                    all_day: bool = False, lunar: bool = False) -> Dict[str, Any]:
+    def create_event(self, title: str, description: str, start_at: str, end_at: str) -> Dict[str, Any]:
         """
         Create a new calendar event.
         
@@ -34,8 +33,6 @@ class KakaoCalendarComponent(CalendarInterface):
             description: Event description
             start_at: Start time (ISO 8601 format)
             end_at: End time (ISO 8601 format)
-            all_day: Whether it's an all-day event
-            lunar: Whether to use lunar calendar
             
         Returns:
             API response as dictionary
@@ -47,9 +44,7 @@ class KakaoCalendarComponent(CalendarInterface):
             "title": title,
             "time": {
                 "start_at": start_at,
-                "end_at": end_at,
-                "all_day": all_day,
-                "lunar": lunar
+                "end_at": end_at
             },
             "description": description
         }

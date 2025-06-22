@@ -25,7 +25,7 @@ class CalenderAgent:
             # Default to Kakao Calendar
             self.calendar = KakaoCalendarComponent()
 
-        def create_calendar_event_tool(title: str, description: str, start_at: str, end_at: str, all_day: bool = False) -> str:
+        def create_calendar_event_tool(title: str, description: str, start_at: str, end_at: str) -> str:
             """
             Create a new calendar event.
             
@@ -34,31 +34,39 @@ class CalenderAgent:
                 description: 일정 설명
                 start_at: 일정 시작 시간 (ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ)
                 end_at: 일정 종료 시간 (ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ)
-                all_day: 종일 일정 여부 (기본값: False)
             """
             print("============ Create Calendar Event ===============")
             print(f"Title: {title}")
             print(f"Description: {description}")
             print(f"Start: {start_at}")
             print(f"End: {end_at}")
-            print(f"All Day: {all_day}")
             
             try:
                 result = self.calendar.create_event(
                     title=title,
                     description=description,
                     start_at=start_at,
-                    end_at=end_at,
-                    all_day=all_day,
-                    lunar=False
+                    end_at=end_at
                 )
                 
                 print(f"Calendar API Response: {result}")
                 
                 if result and "event_id" in result:
-                    return f"일정 생성 성공: {title} ({start_at} ~ {end_at}) - 이벤트 ID: {result['event_id']}"
+                    event_id = result['event_id']
+                    return f"""✅ 일정이 성공적으로 생성되었습니다!
+
+📅 일정 정보:
+• 제목: {title}
+• 시간: {start_at} ~ {end_at}
+• 설명: {description}
+
+🆔 이벤트 ID: `{event_id}`
+
+💡 이 일정을 나중에 수정하거나 삭제하려면 위의 이벤트 ID를 사용하세요.
+예시: "이벤트 ID {event_id}의 일정을 삭제해줘" 또는 "이벤트 ID {event_id}의 일정 제목을 변경해줘"
+"""
                 else:
-                    return f"일정 생성 성공: {title} ({start_at} ~ {end_at})"
+                    return f"✅ 일정 생성 완료!\n📅 제목: {title}\n⏰ 시간: {start_at} ~ {end_at}"
                     
             except Exception as e:
                 error_msg = f"일정 생성에 실패했습니다: {str(e)}"
@@ -123,9 +131,9 @@ class CalenderAgent:
                 print(f"Calendar API Response: {result}")
                 
                 if result:
-                    return f"일정 수정 성공: 이벤트 ID {event_id}"
+                    return f"✅ 일정 수정이 완료되었습니다!\n🆔 이벤트 ID: {event_id}"
                 else:
-                    return "일정 수정에 실패했습니다."
+                    return "❌ 일정 수정에 실패했습니다."
                     
             except Exception as e:
                 error_msg = f"일정 수정에 실패했습니다: {str(e)}"
@@ -148,9 +156,9 @@ class CalenderAgent:
                 print(f"Calendar API Response: {result}")
                 
                 if result:
-                    return f"일정 삭제 성공: 이벤트 ID {event_id}"
+                    return f"✅ 일정 삭제가 완료되었습니다!\n🆔 삭제된 이벤트 ID: {event_id}"
                 else:
-                    return "일정 삭제에 실패했습니다."
+                    return "❌ 일정 삭제에 실패했습니다."
                     
             except Exception as e:
                 error_msg = f"일정 삭제에 실패했습니다: {str(e)}"
@@ -185,6 +193,11 @@ class CalenderAgent:
 - get_details_event_tool: 일정 상세 조회
 - update_calendar_event_tool: 일정 수정
 - delete_calendar_event_tool: 일정 삭제
+
+💡 대화형 일정 관리 팁:
+- 일정 생성 후에는 반드시 이벤트 ID를 사용자에게 명확하게 알려주세요
+- 사용자가 "회의 일정 삭제해줘" 같은 요청을 하면, 먼저 "어떤 회의 일정인지 구체적으로 알려주세요. 이벤트 ID나 정확한 제목을 알려주시면 도움을 드릴 수 있습니다."라고 안내해주세요
+- 일정 수정/삭제 시 이벤트 ID가 없으면, 사용자에게 이벤트 ID를 요청하거나 구체적인 정보를 요청하세요
 
 일정 시간 형식: ISO 8601 (YYYY-MM-DDTHH:MM:SSZ)
 예시:

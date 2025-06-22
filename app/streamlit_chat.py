@@ -4,6 +4,11 @@ import json
 import uuid
 from datetime import datetime
 import time
+import os
+from dotenv import load_dotenv
+
+# .env 파일 로드
+load_dotenv()
 
 # 페이지 설정
 st.set_page_config(
@@ -66,11 +71,102 @@ st.markdown("""
         margin-bottom: 1rem;
         font-size: 0.9rem;
     }
+    .config-status {
+        background-color: #f8f9fa;
+        border: 1px solid #dee2e6;
+        border-radius: 0.3rem;
+        padding: 0.5rem;
+        margin-bottom: 0.5rem;
+        font-size: 0.85rem;
+    }
+    .config-ok {
+        border-left: 4px solid #28a745;
+        background-color: #d4edda;
+    }
+    .config-error {
+        border-left: 4px solid #dc3545;
+        background-color: #f8d7da;
+    }
 </style>
 """, unsafe_allow_html=True)
 
 # API 설정
 API_BASE_URL = "http://localhost:8000"
+
+def check_config_status():
+    """설정 상태를 확인합니다."""
+    config_status = {}
+    
+    # 필요한 환경 변수들
+    required_configs = {
+        "OPENAI_KEY": "OpenAI API 키",
+        "NAVER_CLIENT_ID": "네이버 클라이언트 ID", 
+        "NAVER_CLIENT_SECRET": "네이버 클라이언트 시크릿",
+        "KAKAO_KEY": "카카오 API 키",
+        "GOOGLE_CREDENTIAL_PATH": "Google 인증 파일 경로",
+        "GMAIL_TOKEN_PATH": "Gmail 토큰 파일 경로"
+    }
+    
+    for key, description in required_configs.items():
+        value = os.getenv(key)
+        if value:
+            # 파일 경로인 경우 파일 존재 여부도 확인
+            if key in ["GOOGLE_CREDENTIAL_PATH", "GMAIL_TOKEN_PATH"]:
+                file_exists = os.path.exists(value)
+                config_status[key] = {
+                    "description": description,
+                    "status": "✅ 설정됨" if file_exists else "⚠️ 파일 없음",
+                    "ok": file_exists
+                }
+            else:
+                config_status[key] = {
+                    "description": description,
+                    "status": "✅ 설정됨",
+                    "ok": True
+                }
+        else:
+            config_status[key] = {
+                "description": description,
+                "status": "❌ 미설정",
+                "ok": False
+            }
+    
+    return config_status
+
+def check_server_status():
+    """FastAPI 서버 상태를 확인합니다."""
+    try:
+        response = requests.get(f"{API_BASE_URL}/health", timeout=5)
+        if response.status_code == 200:
+            return {
+                "status": "✅ 서버 실행 중",
+                "ok": True,
+                "response_time": response.elapsed.total_seconds()
+            }
+        else:
+            return {
+                "status": f"⚠️ 서버 응답 오류 (HTTP {response.status_code})",
+                "ok": False,
+                "response_time": None
+            }
+    except requests.exceptions.ConnectionError:
+        return {
+            "status": "❌ 서버 연결 실패",
+            "ok": False,
+            "response_time": None
+        }
+    except requests.exceptions.Timeout:
+        return {
+            "status": "⏰ 서버 응답 시간 초과",
+            "ok": False,
+            "response_time": None
+        }
+    except Exception as e:
+        return {
+            "status": f"❌ 서버 확인 오류: {str(e)}",
+            "ok": False,
+            "response_time": None
+        }
 
 def send_message(message, session_id=None):
     """API로 메시지를 전송합니다."""
@@ -163,6 +259,42 @@ if "clear_input_flag" not in st.session_state:
 with st.sidebar:
     st.title("🤖 멀티 에이전트 채팅")
     
+    # 설정 상태 확인
+    st.subheader("⚙️ 설정 상태")
+    config_status = check_config_status()
+    
+    # 서버 상태 확인
+    server_status = check_server_status()
+    
+    # 서버 상태 표시
+    server_css_class = "config-ok" if server_status["ok"] else "config-error"
+    response_time_text = f" (응답시간: {server_status['response_time']:.2f}초)" if server_status["response_time"] else ""
+    st.markdown(f"""
+    <div class="config-status {server_css_class}">
+        <strong>FastAPI 서버</strong><br>
+        상태: {server_status['status']}{response_time_text}
+    </div>
+    """, unsafe_allow_html=True)
+    
+    all_ok = server_status["ok"]  # 서버 상태
+    for key, info in config_status.items():
+        css_class = "config-ok" if info["ok"] else "config-error"
+        st.markdown(f"""
+        <div class="config-status {css_class}">
+            <strong>{info['description']}</strong><br>
+            상태: {info['status']}<br>
+        </div>
+        """, unsafe_allow_html=True)
+        if not info["ok"]:
+            all_ok = False
+    
+    if all_ok:
+        st.success("✅ 모든 설정이 완료되었습니다!")
+    else:
+        st.warning("⚠️ 일부 설정이 누락되었습니다.")
+    
+    st.divider()
+    
     # 세션 관리
     st.subheader("📋 세션 관리")
     
@@ -209,6 +341,7 @@ with st.sidebar:
     - **Chat**: 일반적인 대화
     - **Researcher**: 검색 및 정보 조사
     - **Calender**: 일정 관리
+    - **Mail**: 이메일 발송 및 관리
     """)
 
 # 메인 채팅 영역

@@ -6,9 +6,19 @@ from app.domain.graph.TravelChatGraph import TravelChatGraph
 from app.domain.graph.memory import chat_memory
 import uuid
 from typing import Optional
+from datetime import datetime
 
 app = FastAPI(debug=True)
 travel_chatbot = TravelChatGraph()
+
+@app.get("/health")
+async def health_check():
+    """서버 상태를 확인하는 엔드포인트"""
+    return {
+        "status": "healthy",
+        "timestamp": datetime.now().isoformat(),
+        "service": "Multi-Agent Chat API"
+    }
 
 @app.post("/chat")
 async def test(request: MessageRequest):
