@@ -34,8 +34,8 @@ class CalenderAgent:
             Args:
                 title: 일정 제목
                 description: 일정 설명
-                start_at: 일정 시작 시간 (ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ)
-                end_at: 일정 종료 시간 (ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ)
+                start_at: 일정 시작 시간 (RFC5545 format: YYYY-MM-DDTHH:MM:SSZ)
+                end_at: 일정 종료 시간 (RFC5545 format: YYYY-MM-DDTHH:MM:SSZ)
             """
             print("============ Create Calendar Event ===============")
             print(f"Title: {title}")
@@ -119,8 +119,8 @@ class CalenderAgent:
                 event_id: 수정할 일정의 ID
                 title: 새로운 제목 (선택사항)
                 description: 새로운 설명 (선택사항)
-                start_at: 새로운 시작 시간 (선택사항)
-                end_at: 새로운 종료 시간 (선택사항)
+                start_at: 새로운 시작 시간 (선택사항) RFC5545 format: YYYY-MM-DDTHH:MM:SSZ
+                end_at: 새로운 종료 시간 (선택사항) RFC5545 format: YYYY-MM-DDTHH:MM:SSZ
             """
             print("============ Update Calendar Event ===============")
             print(f"Event ID: {event_id}")
