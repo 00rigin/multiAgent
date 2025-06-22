@@ -68,30 +68,8 @@ class MailAgent:
                 print(f"Error: {error_msg}")
                 return error_msg
 
-        def test_connection_tool() -> str:
-            """
-            Test the connection to the mail service.
-            """
-            print("============ Test Mail Connection ===============")
-            
-            try:
-                result = self.mail.test_connection()
-                
-                print(f"Mail Connection Test Response: {result}")
-                
-                if result:
-                    return "✅ 이메일 서비스 연결이 정상입니다!"
-                else:
-                    return "❌ 이메일 서비스 연결에 실패했습니다."
-                    
-            except Exception as e:
-                error_msg = f"이메일 서비스 연결 테스트에 실패했습니다: {str(e)}"
-                print(f"Error: {error_msg}")
-                return error_msg
-
         # 도구들 생성
         self.send_email_tool = tool(send_email_tool)
-        self.test_connection_tool = tool(test_connection_tool)
 
         # 프롬프트 가져오기
         prompt = get_prompt('mail')
@@ -101,7 +79,6 @@ class MailAgent:
             self.llm,
             tools=[
                 self.send_email_tool,
-                self.test_connection_tool,
             ],
             prompt=prompt
         )

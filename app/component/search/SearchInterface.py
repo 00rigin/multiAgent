@@ -20,4 +20,4 @@ class SearchInterface(ABC):
         Returns:
             검색 결과 문자열
         """
-        pass 
+        pass
